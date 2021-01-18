@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		94869CC725B6669600EDB5AF /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94869CC625B6669600EDB5AF /* libcurl.a */; };
+		94869CC925B6737100EDB5AF /* libcurl.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 94869CC825B6737100EDB5AF /* libcurl.4.dylib */; };
+		94869CCC25B673C400EDB5AF /* libcurl.4.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94869CCB25B673C400EDB5AF /* libcurl.4.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		94DBF18E25B624370042EC4D /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94DBF18D25B624370042EC4D /* ResourcePath.mm */; };
 		94DBF19125B624370042EC4D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94DBF19025B624370042EC4D /* main.cpp */; };
 		94DBF19425B624370042EC4D /* cute_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 94DBF19325B624370042EC4D /* cute_image.jpg */; };
@@ -44,6 +47,7 @@
 				94DBF1E625B631FD0042EC4D /* freetype.framework in Embed Frameworks */,
 				94DBF1EE25B631FD0042EC4D /* vorbis.framework in Embed Frameworks */,
 				94DBF1F025B631FD0042EC4D /* sfml-system.framework in Embed Frameworks */,
+				94869CCC25B673C400EDB5AF /* libcurl.4.dylib in Embed Frameworks */,
 				94DBF1FA25B631FD0042EC4D /* ogg.framework in Embed Frameworks */,
 				94DBF1E825B631FD0042EC4D /* sfml-graphics.framework in Embed Frameworks */,
 				94DBF1EC25B631FD0042EC4D /* OpenAL.framework in Embed Frameworks */,
@@ -56,7 +60,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		94DBF18825B624370042EC4D /* DisneyMagic-2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DisneyMagic-2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		94869CC625B6669600EDB5AF /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = DisneyMagic/lib/libcurl.a; sourceTree = "<group>"; };
+		94869CC825B6737100EDB5AF /* libcurl.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.4.dylib; path = DisneyMagic/lib/libcurl.4.dylib; sourceTree = "<group>"; };
+		94869CCA25B673C400EDB5AF /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = DisneyMagic/lib/libcurl.a; sourceTree = "<group>"; };
+		94869CCB25B673C400EDB5AF /* libcurl.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.4.dylib; path = DisneyMagic/lib/libcurl.4.dylib; sourceTree = "<group>"; };
+		94DBF18825B624370042EC4D /* DisneyMagic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DisneyMagic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94DBF18D25B624370042EC4D /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
 		94DBF18F25B624370042EC4D /* ResourcePath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ResourcePath.hpp; sourceTree = "<group>"; };
 		94DBF19025B624370042EC4D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -98,6 +106,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94869CC925B6737100EDB5AF /* libcurl.4.dylib in Frameworks */,
+				94869CC725B6669600EDB5AF /* libcurl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +117,8 @@
 		94DBF17E25B624370042EC4D = {
 			isa = PBXGroup;
 			children = (
+				94869CCB25B673C400EDB5AF /* libcurl.4.dylib */,
+				94869CCA25B673C400EDB5AF /* libcurl.a */,
 				94DBF1E025B631FD0042EC4D /* FLAC.framework */,
 				94DBF1D825B631FC0042EC4D /* freetype.framework */,
 				94DBF1E225B631FD0042EC4D /* ogg.framework */,
@@ -129,7 +141,7 @@
 		94DBF18925B624370042EC4D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				94DBF18825B624370042EC4D /* DisneyMagic-2.app */,
+				94DBF18825B624370042EC4D /* DisneyMagic.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -168,6 +180,8 @@
 		94DBF1A025B624CB0042EC4D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				94869CC825B6737100EDB5AF /* libcurl.4.dylib */,
+				94869CC625B6669600EDB5AF /* libcurl.a */,
 				94DBF1AD25B625040042EC4D /* FLAC.framework */,
 				94DBF1B325B625040042EC4D /* freetype.framework */,
 				94DBF1B025B625040042EC4D /* ogg.framework */,
@@ -188,9 +202,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		94DBF18725B624370042EC4D /* DisneyMagic-2 */ = {
+		94DBF18725B624370042EC4D /* DisneyMagic */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 94DBF19D25B624370042EC4D /* Build configuration list for PBXNativeTarget "DisneyMagic-2" */;
+			buildConfigurationList = 94DBF19D25B624370042EC4D /* Build configuration list for PBXNativeTarget "DisneyMagic" */;
 			buildPhases = (
 				94DBF18325B624370042EC4D /* Sources */,
 				94DBF18425B624370042EC4D /* Frameworks */,
@@ -202,9 +216,9 @@
 			);
 			dependencies = (
 			);
-			name = "DisneyMagic-2";
+			name = DisneyMagic;
 			productName = "DisneyMagic-2";
-			productReference = 94DBF18825B624370042EC4D /* DisneyMagic-2.app */;
+			productReference = 94DBF18825B624370042EC4D /* DisneyMagic.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -233,7 +247,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				94DBF18725B624370042EC4D /* DisneyMagic-2 */,
+				94DBF18725B624370042EC4D /* DisneyMagic */,
 			);
 		};
 /* End PBXProject section */
@@ -384,11 +398,23 @@
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 					"$(PROJECT_DIR)/DisneyMagic/extlilbs",
 				);
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					"$(inherited)",
+					"$(PROJECT_DIR)/DisneyMagic/include",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/DisneyMagic/DisneyMagic-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@loader_path/../Frameworks",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib/,
+					"$(inherited)",
+					"$(PROJECT_DIR)/DisneyMagic/lib",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_BUNDLE_IDENTIFIER = RCEnterprises.DisneyMagic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -403,11 +429,23 @@
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 					"$(PROJECT_DIR)/DisneyMagic/extlilbs",
 				);
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					"$(inherited)",
+					"$(PROJECT_DIR)/DisneyMagic/include",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/DisneyMagic/DisneyMagic-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@loader_path/../Frameworks",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib/,
+					"$(inherited)",
+					"$(PROJECT_DIR)/DisneyMagic/lib",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_BUNDLE_IDENTIFIER = RCEnterprises.DisneyMagic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -424,7 +462,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		94DBF19D25B624370042EC4D /* Build configuration list for PBXNativeTarget "DisneyMagic-2" */ = {
+		94DBF19D25B624370042EC4D /* Build configuration list for PBXNativeTarget "DisneyMagic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				94DBF19E25B624370042EC4D /* Debug */,
