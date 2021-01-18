@@ -33,4 +33,7 @@
 
 # Misc
 .DS_Store
+*.xcuserstate
+project.xcworkspace/
+xcuserdata/
 .vscode/c_cpp_properties.json
