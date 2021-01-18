@@ -14,31 +14,18 @@
 		94DBF19825B624370042EC4D /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94DBF19725B624370042EC4D /* sansation.ttf */; };
 		94DBF19A25B624370042EC4D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBF19925B624370042EC4D /* icon.png */; };
 		94DBF1D725B62AB90042EC4D /* DisneyMagic-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94DBF1D625B62AB80042EC4D /* DisneyMagic-Info.plist */; };
-		94DBF1E525B631FD0042EC4D /* freetype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1D825B631FC0042EC4D /* freetype.framework */; };
 		94DBF1E625B631FD0042EC4D /* freetype.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1D825B631FC0042EC4D /* freetype.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1E725B631FD0042EC4D /* sfml-graphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1D925B631FC0042EC4D /* sfml-graphics.framework */; };
 		94DBF1E825B631FD0042EC4D /* sfml-graphics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1D925B631FC0042EC4D /* sfml-graphics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1E925B631FD0042EC4D /* vorbisfile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DA25B631FD0042EC4D /* vorbisfile.framework */; };
 		94DBF1EA25B631FD0042EC4D /* vorbisfile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DA25B631FD0042EC4D /* vorbisfile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1EB25B631FD0042EC4D /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DB25B631FD0042EC4D /* OpenAL.framework */; };
 		94DBF1EC25B631FD0042EC4D /* OpenAL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DB25B631FD0042EC4D /* OpenAL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1ED25B631FD0042EC4D /* vorbis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DC25B631FD0042EC4D /* vorbis.framework */; };
 		94DBF1EE25B631FD0042EC4D /* vorbis.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DC25B631FD0042EC4D /* vorbis.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1EF25B631FD0042EC4D /* sfml-system.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DD25B631FD0042EC4D /* sfml-system.framework */; };
 		94DBF1F025B631FD0042EC4D /* sfml-system.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DD25B631FD0042EC4D /* sfml-system.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1F125B631FD0042EC4D /* sfml-network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DE25B631FD0042EC4D /* sfml-network.framework */; };
 		94DBF1F225B631FD0042EC4D /* sfml-network.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DE25B631FD0042EC4D /* sfml-network.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1F325B631FD0042EC4D /* sfml-window.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DF25B631FD0042EC4D /* sfml-window.framework */; };
 		94DBF1F425B631FD0042EC4D /* sfml-window.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DF25B631FD0042EC4D /* sfml-window.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1F525B631FD0042EC4D /* FLAC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E025B631FD0042EC4D /* FLAC.framework */; };
 		94DBF1F625B631FD0042EC4D /* FLAC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E025B631FD0042EC4D /* FLAC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1F725B631FD0042EC4D /* sfml-audio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E125B631FD0042EC4D /* sfml-audio.framework */; };
 		94DBF1F825B631FD0042EC4D /* sfml-audio.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E125B631FD0042EC4D /* sfml-audio.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1F925B631FD0042EC4D /* ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E225B631FD0042EC4D /* ogg.framework */; };
 		94DBF1FA25B631FD0042EC4D /* ogg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E225B631FD0042EC4D /* ogg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1FB25B631FD0042EC4D /* vorbisenc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E325B631FD0042EC4D /* vorbisenc.framework */; };
 		94DBF1FC25B631FD0042EC4D /* vorbisenc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E325B631FD0042EC4D /* vorbisenc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1FD25B631FD0042EC4D /* SFML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E425B631FD0042EC4D /* SFML.framework */; };
 		94DBF1FE25B631FD0042EC4D /* SFML.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E425B631FD0042EC4D /* SFML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -111,19 +98,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94DBF1F525B631FD0042EC4D /* FLAC.framework in Frameworks */,
-				94DBF1F725B631FD0042EC4D /* sfml-audio.framework in Frameworks */,
-				94DBF1FB25B631FD0042EC4D /* vorbisenc.framework in Frameworks */,
-				94DBF1F325B631FD0042EC4D /* sfml-window.framework in Frameworks */,
-				94DBF1E925B631FD0042EC4D /* vorbisfile.framework in Frameworks */,
-				94DBF1E525B631FD0042EC4D /* freetype.framework in Frameworks */,
-				94DBF1ED25B631FD0042EC4D /* vorbis.framework in Frameworks */,
-				94DBF1EF25B631FD0042EC4D /* sfml-system.framework in Frameworks */,
-				94DBF1F925B631FD0042EC4D /* ogg.framework in Frameworks */,
-				94DBF1E725B631FD0042EC4D /* sfml-graphics.framework in Frameworks */,
-				94DBF1EB25B631FD0042EC4D /* OpenAL.framework in Frameworks */,
-				94DBF1FD25B631FD0042EC4D /* SFML.framework in Frameworks */,
-				94DBF1F125B631FD0042EC4D /* sfml-network.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
