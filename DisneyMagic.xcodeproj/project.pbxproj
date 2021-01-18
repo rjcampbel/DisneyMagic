@@ -13,42 +13,55 @@
 		94DBF19625B624370042EC4D /* nice_music.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 94DBF19525B624370042EC4D /* nice_music.ogg */; };
 		94DBF19825B624370042EC4D /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94DBF19725B624370042EC4D /* sansation.ttf */; };
 		94DBF19A25B624370042EC4D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBF19925B624370042EC4D /* icon.png */; };
-		94DBF1BC25B626170042EC4D /* FLAC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1AD25B625040042EC4D /* FLAC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1BE25B626170042EC4D /* freetype.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1B325B625040042EC4D /* freetype.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1C025B626170042EC4D /* ogg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1B025B625040042EC4D /* ogg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1C225B626170042EC4D /* OpenAL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1AE25B625040042EC4D /* OpenAL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1C425B626170042EC4D /* vorbis.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1AF25B625040042EC4D /* vorbis.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1C625B626170042EC4D /* vorbisenc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1B225B625040042EC4D /* vorbisenc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1C825B626170042EC4D /* vorbisfile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1B125B625040042EC4D /* vorbisfile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1CA25B626170042EC4D /* sfml-audio.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1A525B624CC0042EC4D /* sfml-audio.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1CC25B626170042EC4D /* sfml-graphics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1A425B624CC0042EC4D /* sfml-graphics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1CE25B626170042EC4D /* sfml-network.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1A625B624CC0042EC4D /* sfml-network.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1D025B626170042EC4D /* sfml-system.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1A125B624CB0042EC4D /* sfml-system.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1D225B626170042EC4D /* sfml-window.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1A325B624CC0042EC4D /* sfml-window.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		94DBF1D425B626170042EC4D /* SFML.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1A225B624CC0042EC4D /* SFML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		94DBF1D725B62AB90042EC4D /* DisneyMagic-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94DBF1D625B62AB80042EC4D /* DisneyMagic-Info.plist */; };
+		94DBF1E525B631FD0042EC4D /* freetype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1D825B631FC0042EC4D /* freetype.framework */; };
+		94DBF1E625B631FD0042EC4D /* freetype.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1D825B631FC0042EC4D /* freetype.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94DBF1E725B631FD0042EC4D /* sfml-graphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1D925B631FC0042EC4D /* sfml-graphics.framework */; };
+		94DBF1E825B631FD0042EC4D /* sfml-graphics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1D925B631FC0042EC4D /* sfml-graphics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94DBF1E925B631FD0042EC4D /* vorbisfile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DA25B631FD0042EC4D /* vorbisfile.framework */; };
+		94DBF1EA25B631FD0042EC4D /* vorbisfile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DA25B631FD0042EC4D /* vorbisfile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94DBF1EB25B631FD0042EC4D /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DB25B631FD0042EC4D /* OpenAL.framework */; };
+		94DBF1EC25B631FD0042EC4D /* OpenAL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DB25B631FD0042EC4D /* OpenAL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94DBF1ED25B631FD0042EC4D /* vorbis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DC25B631FD0042EC4D /* vorbis.framework */; };
+		94DBF1EE25B631FD0042EC4D /* vorbis.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DC25B631FD0042EC4D /* vorbis.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94DBF1EF25B631FD0042EC4D /* sfml-system.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DD25B631FD0042EC4D /* sfml-system.framework */; };
+		94DBF1F025B631FD0042EC4D /* sfml-system.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DD25B631FD0042EC4D /* sfml-system.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94DBF1F125B631FD0042EC4D /* sfml-network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DE25B631FD0042EC4D /* sfml-network.framework */; };
+		94DBF1F225B631FD0042EC4D /* sfml-network.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DE25B631FD0042EC4D /* sfml-network.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94DBF1F325B631FD0042EC4D /* sfml-window.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DF25B631FD0042EC4D /* sfml-window.framework */; };
+		94DBF1F425B631FD0042EC4D /* sfml-window.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1DF25B631FD0042EC4D /* sfml-window.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94DBF1F525B631FD0042EC4D /* FLAC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E025B631FD0042EC4D /* FLAC.framework */; };
+		94DBF1F625B631FD0042EC4D /* FLAC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E025B631FD0042EC4D /* FLAC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94DBF1F725B631FD0042EC4D /* sfml-audio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E125B631FD0042EC4D /* sfml-audio.framework */; };
+		94DBF1F825B631FD0042EC4D /* sfml-audio.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E125B631FD0042EC4D /* sfml-audio.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94DBF1F925B631FD0042EC4D /* ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E225B631FD0042EC4D /* ogg.framework */; };
+		94DBF1FA25B631FD0042EC4D /* ogg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E225B631FD0042EC4D /* ogg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94DBF1FB25B631FD0042EC4D /* vorbisenc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E325B631FD0042EC4D /* vorbisenc.framework */; };
+		94DBF1FC25B631FD0042EC4D /* vorbisenc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E325B631FD0042EC4D /* vorbisenc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94DBF1FD25B631FD0042EC4D /* SFML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E425B631FD0042EC4D /* SFML.framework */; };
+		94DBF1FE25B631FD0042EC4D /* SFML.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E425B631FD0042EC4D /* SFML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		94DBF1D525B626170042EC4D /* Embed Frameworks */ = {
+		94DBF1FF25B631FD0042EC4D /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				94DBF1D025B626170042EC4D /* sfml-system.framework in Embed Frameworks */,
-				94DBF1BE25B626170042EC4D /* freetype.framework in Embed Frameworks */,
-				94DBF1CA25B626170042EC4D /* sfml-audio.framework in Embed Frameworks */,
-				94DBF1CC25B626170042EC4D /* sfml-graphics.framework in Embed Frameworks */,
-				94DBF1CE25B626170042EC4D /* sfml-network.framework in Embed Frameworks */,
-				94DBF1BC25B626170042EC4D /* FLAC.framework in Embed Frameworks */,
-				94DBF1C825B626170042EC4D /* vorbisfile.framework in Embed Frameworks */,
-				94DBF1C625B626170042EC4D /* vorbisenc.framework in Embed Frameworks */,
-				94DBF1D225B626170042EC4D /* sfml-window.framework in Embed Frameworks */,
-				94DBF1C425B626170042EC4D /* vorbis.framework in Embed Frameworks */,
-				94DBF1C025B626170042EC4D /* ogg.framework in Embed Frameworks */,
-				94DBF1D425B626170042EC4D /* SFML.framework in Embed Frameworks */,
-				94DBF1C225B626170042EC4D /* OpenAL.framework in Embed Frameworks */,
+				94DBF1F625B631FD0042EC4D /* FLAC.framework in Embed Frameworks */,
+				94DBF1F825B631FD0042EC4D /* sfml-audio.framework in Embed Frameworks */,
+				94DBF1FC25B631FD0042EC4D /* vorbisenc.framework in Embed Frameworks */,
+				94DBF1F425B631FD0042EC4D /* sfml-window.framework in Embed Frameworks */,
+				94DBF1EA25B631FD0042EC4D /* vorbisfile.framework in Embed Frameworks */,
+				94DBF1E625B631FD0042EC4D /* freetype.framework in Embed Frameworks */,
+				94DBF1EE25B631FD0042EC4D /* vorbis.framework in Embed Frameworks */,
+				94DBF1F025B631FD0042EC4D /* sfml-system.framework in Embed Frameworks */,
+				94DBF1FA25B631FD0042EC4D /* ogg.framework in Embed Frameworks */,
+				94DBF1E825B631FD0042EC4D /* sfml-graphics.framework in Embed Frameworks */,
+				94DBF1EC25B631FD0042EC4D /* OpenAL.framework in Embed Frameworks */,
+				94DBF1FE25B631FD0042EC4D /* SFML.framework in Embed Frameworks */,
+				94DBF1F225B631FD0042EC4D /* sfml-network.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,6 +91,19 @@
 		94DBF1B225B625040042EC4D /* vorbisenc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vorbisenc.framework; path = ../../../../Library/Frameworks/vorbisenc.framework; sourceTree = "<group>"; };
 		94DBF1B325B625040042EC4D /* freetype.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = freetype.framework; path = ../../../../Library/Frameworks/freetype.framework; sourceTree = "<group>"; };
 		94DBF1D625B62AB80042EC4D /* DisneyMagic-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DisneyMagic-Info.plist"; sourceTree = "<group>"; };
+		94DBF1D825B631FC0042EC4D /* freetype.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = freetype.framework; path = DisneyMagic/extlilbs/freetype.framework; sourceTree = "<group>"; };
+		94DBF1D925B631FC0042EC4D /* sfml-graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-graphics.framework"; path = "DisneyMagic/extlilbs/sfml-graphics.framework"; sourceTree = "<group>"; };
+		94DBF1DA25B631FD0042EC4D /* vorbisfile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vorbisfile.framework; path = DisneyMagic/extlilbs/vorbisfile.framework; sourceTree = "<group>"; };
+		94DBF1DB25B631FD0042EC4D /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = DisneyMagic/extlilbs/OpenAL.framework; sourceTree = "<group>"; };
+		94DBF1DC25B631FD0042EC4D /* vorbis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vorbis.framework; path = DisneyMagic/extlilbs/vorbis.framework; sourceTree = "<group>"; };
+		94DBF1DD25B631FD0042EC4D /* sfml-system.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-system.framework"; path = "DisneyMagic/extlilbs/sfml-system.framework"; sourceTree = "<group>"; };
+		94DBF1DE25B631FD0042EC4D /* sfml-network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-network.framework"; path = "DisneyMagic/extlilbs/sfml-network.framework"; sourceTree = "<group>"; };
+		94DBF1DF25B631FD0042EC4D /* sfml-window.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-window.framework"; path = "DisneyMagic/extlilbs/sfml-window.framework"; sourceTree = "<group>"; };
+		94DBF1E025B631FD0042EC4D /* FLAC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FLAC.framework; path = DisneyMagic/extlilbs/FLAC.framework; sourceTree = "<group>"; };
+		94DBF1E125B631FD0042EC4D /* sfml-audio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-audio.framework"; path = "DisneyMagic/extlilbs/sfml-audio.framework"; sourceTree = "<group>"; };
+		94DBF1E225B631FD0042EC4D /* ogg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ogg.framework; path = DisneyMagic/extlilbs/ogg.framework; sourceTree = "<group>"; };
+		94DBF1E325B631FD0042EC4D /* vorbisenc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vorbisenc.framework; path = DisneyMagic/extlilbs/vorbisenc.framework; sourceTree = "<group>"; };
+		94DBF1E425B631FD0042EC4D /* SFML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SFML.framework; path = DisneyMagic/extlilbs/SFML.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +111,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94DBF1F525B631FD0042EC4D /* FLAC.framework in Frameworks */,
+				94DBF1F725B631FD0042EC4D /* sfml-audio.framework in Frameworks */,
+				94DBF1FB25B631FD0042EC4D /* vorbisenc.framework in Frameworks */,
+				94DBF1F325B631FD0042EC4D /* sfml-window.framework in Frameworks */,
+				94DBF1E925B631FD0042EC4D /* vorbisfile.framework in Frameworks */,
+				94DBF1E525B631FD0042EC4D /* freetype.framework in Frameworks */,
+				94DBF1ED25B631FD0042EC4D /* vorbis.framework in Frameworks */,
+				94DBF1EF25B631FD0042EC4D /* sfml-system.framework in Frameworks */,
+				94DBF1F925B631FD0042EC4D /* ogg.framework in Frameworks */,
+				94DBF1E725B631FD0042EC4D /* sfml-graphics.framework in Frameworks */,
+				94DBF1EB25B631FD0042EC4D /* OpenAL.framework in Frameworks */,
+				94DBF1FD25B631FD0042EC4D /* SFML.framework in Frameworks */,
+				94DBF1F125B631FD0042EC4D /* sfml-network.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +133,19 @@
 		94DBF17E25B624370042EC4D = {
 			isa = PBXGroup;
 			children = (
+				94DBF1E025B631FD0042EC4D /* FLAC.framework */,
+				94DBF1D825B631FC0042EC4D /* freetype.framework */,
+				94DBF1E225B631FD0042EC4D /* ogg.framework */,
+				94DBF1DB25B631FD0042EC4D /* OpenAL.framework */,
+				94DBF1E125B631FD0042EC4D /* sfml-audio.framework */,
+				94DBF1D925B631FC0042EC4D /* sfml-graphics.framework */,
+				94DBF1DE25B631FD0042EC4D /* sfml-network.framework */,
+				94DBF1DD25B631FD0042EC4D /* sfml-system.framework */,
+				94DBF1DF25B631FD0042EC4D /* sfml-window.framework */,
+				94DBF1E425B631FD0042EC4D /* SFML.framework */,
+				94DBF1DC25B631FD0042EC4D /* vorbis.framework */,
+				94DBF1E325B631FD0042EC4D /* vorbisenc.framework */,
+				94DBF1DA25B631FD0042EC4D /* vorbisfile.framework */,
 				94DBF18A25B624370042EC4D /* DisneyMagic */,
 				94DBF18925B624370042EC4D /* Products */,
 				94DBF1A025B624CB0042EC4D /* Frameworks */,
@@ -170,7 +222,7 @@
 				94DBF18425B624370042EC4D /* Frameworks */,
 				94DBF18525B624370042EC4D /* Resources */,
 				94DBF18625B624370042EC4D /* ShellScript */,
-				94DBF1D525B626170042EC4D /* Embed Frameworks */,
+				94DBF1FF25B631FD0042EC4D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -356,6 +408,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(PROJECT_DIR)/DisneyMagic/extlilbs",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/DisneyMagic/DisneyMagic-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -374,6 +427,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(PROJECT_DIR)/DisneyMagic/extlilbs",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/DisneyMagic/DisneyMagic-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
