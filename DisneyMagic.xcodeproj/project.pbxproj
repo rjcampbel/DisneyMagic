@@ -422,7 +422,7 @@
 				94DBF19C25B624370042EC4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		94DBF19D25B624370042EC4D /* Build configuration list for PBXNativeTarget "DisneyMagic-2" */ = {
 			isa = XCConfigurationList;
@@ -431,7 +431,7 @@
 				94DBF19F25B624370042EC4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
