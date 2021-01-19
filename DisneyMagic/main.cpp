@@ -119,19 +119,19 @@ int main()
     std::vector<Collection> collections;
     for (const auto& container : containers.GetArray())
     {
-        auto& set = container["set"];
-        auto& type = set["type"];
-        if (strcmp(type.GetString(), "SetRef") != 0)
+        auto& collection_set = container["set"];
+        auto& collection_type = collection_set["type"];
+        if (strcmp(collection_type.GetString(), "SetRef") != 0)
         {
-            auto& text = set["text"];
-            auto& title = text["title"];
-            auto& full = title["full"];
-            auto& title_set = full["set"];
-            auto& title_default = title_set["default"];
-            auto& title_content = title_default["content"];
+            auto& collection_text = collection_set["text"];
+            auto& collection_title = collection_text["title"];
+            auto& collection_full = collection_title["full"];
+            auto& collection_title_set = collection_full["set"];
+            auto& collection_title_default = collection_title_set["default"];
+            auto& collection_title_content = collection_title_default["content"];
 
-            collections.emplace_back(Collection(title_content.GetString()));
-            auto& items = set["items"];
+            collections.emplace_back(Collection(collection_title_content.GetString()));
+            auto& items = collection_set["items"];
             for (const auto& item : items.GetArray())
             {
                 auto& item_type = item["type"];
@@ -166,8 +166,8 @@ int main()
 
                 auto& image = item["image"];
                 auto& tile_image = image["tile"];
-                auto& image_version = tile_image.MemberBegin()->value;
-                auto& image_series = image_version[image_type_string.c_str()];
+                auto& image_element = tile_image["1.78"]; // ASSUMPTION: every "tile" contains an image with aspect ratio 1.78
+                auto& image_series = image_element[image_type_string.c_str()];
                 auto& image_default = image_series["default"];
                 auto& image_url = image_default["url"];
 
@@ -219,32 +219,43 @@ int main()
         window.clear();
 
         size_t collection_index{ 0 };
-        const double row_size{ 300 };
+        size_t row_offset{ 10 };
+        const double row_size{ 250 };
         for (const auto& collection : collections)
         {
-            double collection_origin_row{ collection_index * row_size };
-            double collection_origin_column{ 0 };
+            double collection_origin_row{ row_offset + collection_index * row_size };
+            double collection_origin_column{ 10 };
             unsigned int font_size { 24 };
-            sf::Text text(collection.GetTitle().c_str(), font, font_size);
-            text.setFillColor(sf::Color::White);
-            text.setPosition(collection_origin_column, collection_origin_row);
-            window.draw(text);
+            sf::Text collection_text(collection.GetTitle().c_str(), font, font_size);
+            collection_text.setFillColor(sf::Color::White);
+            collection_text.setPosition(collection_origin_column, collection_origin_row);
+            window.draw(collection_text);
 
-            const double element_width{ 250 };
+            const double element_width{ 325 };
             for (size_t element_index = 0; element_index < std::min((size_t)4, collection.GetElementCount()); ++element_index)
             {
                 double element_origin_row{ collection_origin_row + font_size + 10 };
-                double element_origin_column{ element_index * element_width };
+                double element_origin_column{ collection_origin_column + element_index * element_width };
 
+                const auto& element = collection.GetElement(element_index);
                 std::string image_buffer;
-                retrieve_file_from_URL(collection.GetElement(element_index).GetImageUrl().c_str(), image_buffer);
+                retrieve_file_from_URL(element.GetImageUrl().c_str(), image_buffer);
 
                 sf::Texture image;
-                if (image.loadFromMemory(image_buffer.data(), image_buffer.size()));
+                if (image.loadFromMemory(image_buffer.data(), image_buffer.size()))
                 {
                     sf::Sprite sprite(image);
                     sprite.setPosition(element_origin_column, element_origin_row);
+                    sprite.setScale(0.6f, 0.6f);
                     window.draw(sprite);
+                }
+                else
+                {
+                    // If image fails to load, fall back to displaying the program title
+                    sf::Text element_text(element.GetTitle(), font, font_size);
+                    element_text.setFillColor(sf::Color::White);
+                    element_text.setPosition(element_origin_column, element_origin_row);
+                    window.draw(element_text);
                 }
             }
             collection_index++;
