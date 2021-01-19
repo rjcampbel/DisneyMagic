@@ -46,6 +46,60 @@ int retrieve_file_from_URL(const std::string& url, std::string& fileBuffer)
     return 1;
 }
 
+class CollectionElement
+{
+public:
+    CollectionElement(const std::string& title, const std::string& image_url) :
+        title(title),
+        image_url(image_url)
+    {}
+
+    std::string GetTitle() const
+    {
+        return title;
+    }
+
+    std::string GetImageUrl() const
+    {
+        return image_url;
+    }
+private:
+    const std::string title;
+    std::string image_url;
+};
+
+class Collection
+{
+public:
+    Collection(const std::string& title) : 
+        title(title)
+    {}
+
+    void AddElement(const CollectionElement& element)
+    {
+        elements.push_back(element);
+    }
+
+    std::string GetTitle() const
+    {
+        return title;
+    }
+
+    size_t GetElementCount() const
+    {
+        return elements.size();
+    }
+
+    CollectionElement GetElement(size_t index) const
+    {
+        return elements[index];
+    }
+
+private:
+    std::string title;
+    std::vector<CollectionElement> elements;
+};
+
 int main()
 {
     std::string homeApiUrl("https://cd-static.bamgrid.com/dp-117731241344/home.json");
@@ -61,6 +115,7 @@ int main()
     auto& collection = data["StandardCollection"];
     auto& containers = collection["containers"];
 
+    std::vector<Collection> collections;
     for (const auto& container : containers.GetArray())
     {
         auto& set = container["set"];
@@ -73,8 +128,8 @@ int main()
             auto& title_set = full["set"];
             auto& title_default = title_set["default"];
             auto& title_content = title_default["content"];
-            std::cout << "Collection Title: " << title_content.GetString() << std::endl;
 
+            collections.emplace_back(Collection(title_content.GetString()));
             auto& items = set["items"];
             for (const auto& item : items.GetArray())
             {
@@ -107,7 +162,6 @@ int main()
                 auto& title_type = full[title_type_string.c_str()];
                 auto& title_default = title_type["default"];
                 auto& title_content = title_default["content"];
-                std::cout << "\t" << title_content.GetString() << std::endl;
 
                 auto& image = item["image"];
                 auto& tile_image = image["tile"];
@@ -115,7 +169,9 @@ int main()
                 auto& image_series = image_version[image_type_string.c_str()];
                 auto& image_default = image_series["default"];
                 auto& image_url = image_default["url"];
-                std::cout << "Image URL: " << image_url.GetString() << std::endl;
+
+                CollectionElement element(title_content.GetString(), image_url.GetString());
+                collections.back().AddElement(element);
             }
         }
     }
@@ -137,8 +193,6 @@ int main()
     {
         return EXIT_FAILURE;
     }
-    sf::Text text("Hello SFML", font, 50);
-    text.setFillColor(sf::Color::White);
 
     // Start the game loop
     while (window.isOpen())
