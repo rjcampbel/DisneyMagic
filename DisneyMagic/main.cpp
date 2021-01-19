@@ -30,6 +30,7 @@ int retrieve_file_from_URL(const std::string& url, std::string& fileBuffer)
 }
 
 static const sf::Vector2f kDefaultImageScale(0.6f, 0.6f);
+static const sf::Vector2f kEnhancedImageScale(0.62f, 0.62f);
 
 class CollectionElement
 {
@@ -319,7 +320,7 @@ int main()
 
                 if (cursor_position == collection_index * max_row_tile_count + element_index)
                 {
-                    element.Scale(sf::Vector2f(0.62f, 0.62f));
+                    element.Scale(kEnhancedImageScale);
                     
                     sf::RectangleShape selection_rect;
                     selection_rect.setFillColor(sf::Color::Transparent);
