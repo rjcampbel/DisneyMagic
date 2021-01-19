@@ -10,11 +10,9 @@
 		9458A71925B71DBE003C3882 /* Avenir.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 9458A71825B71DBE003C3882 /* Avenir.ttc */; };
 		94869CC725B6669600EDB5AF /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94869CC625B6669600EDB5AF /* libcurl.a */; };
 		94869CC925B6737100EDB5AF /* libcurl.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 94869CC825B6737100EDB5AF /* libcurl.4.dylib */; };
-		94869CCC25B673C400EDB5AF /* libcurl.4.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94869CCB25B673C400EDB5AF /* libcurl.4.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		94B8973325B718DD004057FC /* DisneyPlus.png in Resources */ = {isa = PBXBuildFile; fileRef = 94B8973225B718DD004057FC /* DisneyPlus.png */; };
 		94DBF18E25B624370042EC4D /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94DBF18D25B624370042EC4D /* ResourcePath.mm */; };
 		94DBF19125B624370042EC4D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94DBF19025B624370042EC4D /* main.cpp */; };
-		94DBF19825B624370042EC4D /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94DBF19725B624370042EC4D /* sansation.ttf */; };
 		94DBF1D725B62AB90042EC4D /* DisneyMagic-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94DBF1D625B62AB80042EC4D /* DisneyMagic-Info.plist */; };
 		94DBF1E625B631FD0042EC4D /* freetype.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1D825B631FC0042EC4D /* freetype.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		94DBF1E825B631FD0042EC4D /* sfml-graphics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1D925B631FC0042EC4D /* sfml-graphics.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -46,7 +44,6 @@
 				94DBF1E625B631FD0042EC4D /* freetype.framework in Embed Frameworks */,
 				94DBF1EE25B631FD0042EC4D /* vorbis.framework in Embed Frameworks */,
 				94DBF1F025B631FD0042EC4D /* sfml-system.framework in Embed Frameworks */,
-				94869CCC25B673C400EDB5AF /* libcurl.4.dylib in Embed Frameworks */,
 				94DBF1FA25B631FD0042EC4D /* ogg.framework in Embed Frameworks */,
 				94DBF1E825B631FD0042EC4D /* sfml-graphics.framework in Embed Frameworks */,
 				94DBF1EC25B631FD0042EC4D /* OpenAL.framework in Embed Frameworks */,
@@ -62,27 +59,12 @@
 		9458A71825B71DBE003C3882 /* Avenir.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Avenir.ttc; sourceTree = "<group>"; };
 		94869CC625B6669600EDB5AF /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = DisneyMagic/lib/libcurl.a; sourceTree = "<group>"; };
 		94869CC825B6737100EDB5AF /* libcurl.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.4.dylib; path = DisneyMagic/lib/libcurl.4.dylib; sourceTree = "<group>"; };
-		94869CCA25B673C400EDB5AF /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = DisneyMagic/lib/libcurl.a; sourceTree = "<group>"; };
-		94869CCB25B673C400EDB5AF /* libcurl.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.4.dylib; path = DisneyMagic/lib/libcurl.4.dylib; sourceTree = "<group>"; };
 		94B8973225B718DD004057FC /* DisneyPlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DisneyPlus.png; sourceTree = "<group>"; };
 		94DBF18825B624370042EC4D /* DisneyMagic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DisneyMagic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94DBF18D25B624370042EC4D /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
 		94DBF18F25B624370042EC4D /* ResourcePath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ResourcePath.hpp; sourceTree = "<group>"; };
 		94DBF19025B624370042EC4D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		94DBF19725B624370042EC4D /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sansation.ttf; sourceTree = "<group>"; };
-		94DBF1A125B624CB0042EC4D /* sfml-system.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-system.framework"; path = "../../../../Library/Frameworks/sfml-system.framework"; sourceTree = "<group>"; };
-		94DBF1A225B624CC0042EC4D /* SFML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SFML.framework; path = ../../../../Library/Frameworks/SFML.framework; sourceTree = "<group>"; };
-		94DBF1A325B624CC0042EC4D /* sfml-window.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-window.framework"; path = "../../../../Library/Frameworks/sfml-window.framework"; sourceTree = "<group>"; };
-		94DBF1A425B624CC0042EC4D /* sfml-graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-graphics.framework"; path = "../../../../Library/Frameworks/sfml-graphics.framework"; sourceTree = "<group>"; };
-		94DBF1A525B624CC0042EC4D /* sfml-audio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-audio.framework"; path = "../../../../Library/Frameworks/sfml-audio.framework"; sourceTree = "<group>"; };
-		94DBF1A625B624CC0042EC4D /* sfml-network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-network.framework"; path = "../../../../Library/Frameworks/sfml-network.framework"; sourceTree = "<group>"; };
-		94DBF1AD25B625040042EC4D /* FLAC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FLAC.framework; path = ../../../../Library/Frameworks/FLAC.framework; sourceTree = "<group>"; };
-		94DBF1AE25B625040042EC4D /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = ../../../../Library/Frameworks/OpenAL.framework; sourceTree = "<group>"; };
-		94DBF1AF25B625040042EC4D /* vorbis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vorbis.framework; path = ../../../../Library/Frameworks/vorbis.framework; sourceTree = "<group>"; };
-		94DBF1B025B625040042EC4D /* ogg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ogg.framework; path = ../../../../Library/Frameworks/ogg.framework; sourceTree = "<group>"; };
-		94DBF1B125B625040042EC4D /* vorbisfile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vorbisfile.framework; path = ../../../../Library/Frameworks/vorbisfile.framework; sourceTree = "<group>"; };
-		94DBF1B225B625040042EC4D /* vorbisenc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vorbisenc.framework; path = ../../../../Library/Frameworks/vorbisenc.framework; sourceTree = "<group>"; };
-		94DBF1B325B625040042EC4D /* freetype.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = freetype.framework; path = ../../../../Library/Frameworks/freetype.framework; sourceTree = "<group>"; };
 		94DBF1D625B62AB80042EC4D /* DisneyMagic-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DisneyMagic-Info.plist"; sourceTree = "<group>"; };
 		94DBF1D825B631FC0042EC4D /* freetype.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = freetype.framework; path = DisneyMagic/extlilbs/freetype.framework; sourceTree = "<group>"; };
 		94DBF1D925B631FC0042EC4D /* sfml-graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-graphics.framework"; path = "DisneyMagic/extlilbs/sfml-graphics.framework"; sourceTree = "<group>"; };
@@ -115,8 +97,6 @@
 		94DBF17E25B624370042EC4D = {
 			isa = PBXGroup;
 			children = (
-				94869CCB25B673C400EDB5AF /* libcurl.4.dylib */,
-				94869CCA25B673C400EDB5AF /* libcurl.a */,
 				94DBF1E025B631FD0042EC4D /* FLAC.framework */,
 				94DBF1D825B631FC0042EC4D /* freetype.framework */,
 				94DBF1E225B631FD0042EC4D /* ogg.framework */,
@@ -179,19 +159,6 @@
 			children = (
 				94869CC825B6737100EDB5AF /* libcurl.4.dylib */,
 				94869CC625B6669600EDB5AF /* libcurl.a */,
-				94DBF1AD25B625040042EC4D /* FLAC.framework */,
-				94DBF1B325B625040042EC4D /* freetype.framework */,
-				94DBF1B025B625040042EC4D /* ogg.framework */,
-				94DBF1AE25B625040042EC4D /* OpenAL.framework */,
-				94DBF1AF25B625040042EC4D /* vorbis.framework */,
-				94DBF1B225B625040042EC4D /* vorbisenc.framework */,
-				94DBF1B125B625040042EC4D /* vorbisfile.framework */,
-				94DBF1A525B624CC0042EC4D /* sfml-audio.framework */,
-				94DBF1A425B624CC0042EC4D /* sfml-graphics.framework */,
-				94DBF1A625B624CC0042EC4D /* sfml-network.framework */,
-				94DBF1A125B624CB0042EC4D /* sfml-system.framework */,
-				94DBF1A325B624CC0042EC4D /* sfml-window.framework */,
-				94DBF1A225B624CC0042EC4D /* SFML.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -257,7 +224,6 @@
 				9458A71925B71DBE003C3882 /* Avenir.ttc in Resources */,
 				94DBF1D725B62AB90042EC4D /* DisneyMagic-Info.plist in Resources */,
 				94B8973325B718DD004057FC /* DisneyPlus.png in Resources */,
-				94DBF19825B624370042EC4D /* sansation.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
