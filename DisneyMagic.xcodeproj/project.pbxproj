@@ -10,12 +10,10 @@
 		94869CC725B6669600EDB5AF /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94869CC625B6669600EDB5AF /* libcurl.a */; };
 		94869CC925B6737100EDB5AF /* libcurl.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 94869CC825B6737100EDB5AF /* libcurl.4.dylib */; };
 		94869CCC25B673C400EDB5AF /* libcurl.4.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94869CCB25B673C400EDB5AF /* libcurl.4.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		94B8973325B718DD004057FC /* DisneyPlus.png in Resources */ = {isa = PBXBuildFile; fileRef = 94B8973225B718DD004057FC /* DisneyPlus.png */; };
 		94DBF18E25B624370042EC4D /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94DBF18D25B624370042EC4D /* ResourcePath.mm */; };
 		94DBF19125B624370042EC4D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94DBF19025B624370042EC4D /* main.cpp */; };
-		94DBF19425B624370042EC4D /* cute_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 94DBF19325B624370042EC4D /* cute_image.jpg */; };
-		94DBF19625B624370042EC4D /* nice_music.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 94DBF19525B624370042EC4D /* nice_music.ogg */; };
 		94DBF19825B624370042EC4D /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94DBF19725B624370042EC4D /* sansation.ttf */; };
-		94DBF19A25B624370042EC4D /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 94DBF19925B624370042EC4D /* icon.png */; };
 		94DBF1D725B62AB90042EC4D /* DisneyMagic-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94DBF1D625B62AB80042EC4D /* DisneyMagic-Info.plist */; };
 		94DBF1E625B631FD0042EC4D /* freetype.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1D825B631FC0042EC4D /* freetype.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		94DBF1E825B631FD0042EC4D /* sfml-graphics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1D925B631FC0042EC4D /* sfml-graphics.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -64,14 +62,12 @@
 		94869CC825B6737100EDB5AF /* libcurl.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.4.dylib; path = DisneyMagic/lib/libcurl.4.dylib; sourceTree = "<group>"; };
 		94869CCA25B673C400EDB5AF /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = DisneyMagic/lib/libcurl.a; sourceTree = "<group>"; };
 		94869CCB25B673C400EDB5AF /* libcurl.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.4.dylib; path = DisneyMagic/lib/libcurl.4.dylib; sourceTree = "<group>"; };
+		94B8973225B718DD004057FC /* DisneyPlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DisneyPlus.png; sourceTree = "<group>"; };
 		94DBF18825B624370042EC4D /* DisneyMagic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DisneyMagic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94DBF18D25B624370042EC4D /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
 		94DBF18F25B624370042EC4D /* ResourcePath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ResourcePath.hpp; sourceTree = "<group>"; };
 		94DBF19025B624370042EC4D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		94DBF19325B624370042EC4D /* cute_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cute_image.jpg; sourceTree = "<group>"; };
-		94DBF19525B624370042EC4D /* nice_music.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = nice_music.ogg; sourceTree = "<group>"; };
 		94DBF19725B624370042EC4D /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sansation.ttf; sourceTree = "<group>"; };
-		94DBF19925B624370042EC4D /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		94DBF1A125B624CB0042EC4D /* sfml-system.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-system.framework"; path = "../../../../Library/Frameworks/sfml-system.framework"; sourceTree = "<group>"; };
 		94DBF1A225B624CC0042EC4D /* SFML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SFML.framework; path = ../../../../Library/Frameworks/SFML.framework; sourceTree = "<group>"; };
 		94DBF1A325B624CC0042EC4D /* sfml-window.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-window.framework"; path = "../../../../Library/Frameworks/sfml-window.framework"; sourceTree = "<group>"; };
@@ -169,10 +165,8 @@
 		94DBF19225B624370042EC4D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				94DBF19325B624370042EC4D /* cute_image.jpg */,
-				94DBF19525B624370042EC4D /* nice_music.ogg */,
+				94B8973225B718DD004057FC /* DisneyPlus.png */,
 				94DBF19725B624370042EC4D /* sansation.ttf */,
-				94DBF19925B624370042EC4D /* icon.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -258,10 +252,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				94DBF1D725B62AB90042EC4D /* DisneyMagic-Info.plist in Resources */,
-				94DBF19A25B624370042EC4D /* icon.png in Resources */,
+				94B8973325B718DD004057FC /* DisneyPlus.png in Resources */,
 				94DBF19825B624370042EC4D /* sansation.ttf in Resources */,
-				94DBF19625B624370042EC4D /* nice_music.ogg in Resources */,
-				94DBF19425B624370042EC4D /* cute_image.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
