@@ -177,7 +177,7 @@ int main()
     }
  
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Disney+");
+    sf::RenderWindow window(sf::VideoMode(1600, 1200), "Disney+");
 
     // Set the Icon
     sf::Image icon;
@@ -217,8 +217,15 @@ int main()
         // Clear screen
         window.clear();
 
-        // Draw the string
-        window.draw(text);
+        size_t collection_index = 0;
+        const size_t row_size = 300;
+        for (const auto& collection : collections)
+        {
+            sf::Text text(collection.GetTitle().c_str(), font, 24);
+            text.setFillColor(sf::Color::White);
+            text.setPosition(0.0f, 0.0f + collection_index++ * row_size);
+            window.draw(text);
+        }
 
         // Update the window
         window.display();
