@@ -61,6 +61,65 @@ int main()
     auto& collection = data["StandardCollection"];
     auto& containers = collection["containers"];
 
+    for (const auto& container : containers.GetArray())
+    {
+        auto& set = container["set"];
+        auto& type = set["type"];
+        if (strcmp(type.GetString(), "SetRef") != 0)
+        {
+            auto& text = set["text"];
+            auto& title = text["title"];
+            auto& full = title["full"];
+            auto& title_set = full["set"];
+            auto& title_default = title_set["default"];
+            auto& title_content = title_default["content"];
+            std::cout << "Collection Title: " << title_content.GetString() << std::endl;
+
+            auto& items = set["items"];
+            for (const auto& item : items.GetArray())
+            {
+                auto& item_type = item["type"];
+                std::string title_type_string;
+                std::string image_type_string;
+                if (strcmp(item_type.GetString(), "DmcSeries") == 0)
+                {
+                    title_type_string = "series";
+                    image_type_string = "series";
+                }
+                else if (strcmp(item_type.GetString(), "DmcVideo") == 0)
+                {
+                    title_type_string = "program";
+                    image_type_string = "program";
+                }
+                else if (strcmp(item_type.GetString(), "StandardCollection") == 0)
+                {
+                    title_type_string = "collection";
+                    image_type_string = "default";
+                }
+                else
+                {
+                    std::cout << "Unknown type" << std::endl;
+                }
+
+                auto& text = item["text"];
+                auto& title = text["title"];
+                auto& full = title["full"];
+                auto& title_type = full[title_type_string.c_str()];
+                auto& title_default = title_type["default"];
+                auto& title_content = title_default["content"];
+                std::cout << "\t" << title_content.GetString() << std::endl;
+
+                auto& image = item["image"];
+                auto& tile_image = image["tile"];
+                auto& image_version = tile_image.MemberBegin()->value;
+                auto& image_series = image_version[image_type_string.c_str()];
+                auto& image_default = image_series["default"];
+                auto& image_url = image_default["url"];
+                std::cout << "Image URL: " << image_url.GetString() << std::endl;
+            }
+        }
+    }
+ 
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
 
