@@ -170,7 +170,6 @@ int main()
     auto& collection = data["StandardCollection"];
     auto& containers = collection["containers"];
 
-    int cursor_position = 0;
     std::vector<Collection> collections;
     for (const auto& container : containers.GetArray())
     {
@@ -232,7 +231,10 @@ int main()
         }
     }
 
-    // Start the game loop
+    int cursor_position { 0 };
+
+    const size_t max_row_tile_count { 4 };
+    
     while (window.isOpen())
     {
         // Process events
@@ -257,7 +259,7 @@ int main()
                     }
                     case sf::Keyboard::Left:
                     {
-                        if (cursor_position % 4 > 0)
+                        if (cursor_position % max_row_tile_count > 0)
                         {
                             --cursor_position;
                         }
@@ -265,7 +267,7 @@ int main()
                     }
                     case sf::Keyboard::Right:
                     {
-                        if (cursor_position % 4 < 3 )
+                        if (cursor_position % max_row_tile_count < (max_row_tile_count - 1) )
                         {
                             ++cursor_position;
                         }
@@ -273,17 +275,17 @@ int main()
                     }
                     case sf::Keyboard::Up:
                     {
-                        if (cursor_position / 4 > 0)
+                        if (cursor_position / max_row_tile_count > 0)
                         {
-                            cursor_position -= 4;
+                            cursor_position -= max_row_tile_count;
                         }
                         break;
                     }
                     case sf::Keyboard::Down:
                     {
-                        if (cursor_position / 4 < 3)
+                        if (cursor_position / max_row_tile_count < (max_row_tile_count - 1))
                         {
-                            cursor_position += 4;
+                            cursor_position += max_row_tile_count;
                         }
                     }
                     default: break;
@@ -294,27 +296,28 @@ int main()
         // Clear screen
         window.clear();
 
-        size_t collection_index{ 0 };
-        const double row_offset{ 10 };
-        const double row_size{ 250 };
-        const double collection_origin_column{ 10 };
+        size_t collection_index { 0 };
+        const double row_offset { 10 };
+        const double row_size { 250 };
+        const double column_offset { 10 };
+
         for (auto& collection : collections)
         {
-            double collection_origin_row{ row_offset + collection_index * row_size };
-            unsigned int font_size { 24 };
+            double collection_row { row_offset + collection_index * row_size };
+            double font_size { 24 };
             sf::Text collection_text(collection.GetTitle().c_str(), font, font_size);
             collection_text.setFillColor(sf::Color::White);
-            collection_text.setPosition(collection_origin_column, collection_origin_row);
+            collection_text.setPosition(column_offset, collection_row);
             window.draw(collection_text);
 
             const double element_width{ 325 };
-            for (size_t element_index = 0; element_index < std::min((size_t)4, collection.GetElementCount()); ++element_index) // Display a maximum of 4 images per row -- allow more images in a future revision
+            for (size_t element_index = 0; element_index < std::min(max_row_tile_count, collection.GetElementCount()); ++element_index)
             {
-                double element_origin_row{ collection_origin_row + font_size + 10 };
-                double element_origin_column{ collection_origin_column + element_index * element_width };
+                double element_row { collection_row + font_size + 10 };
+                double element_column { column_offset + element_index * element_width };
                 auto element = collection.GetElement(element_index);
 
-                if (cursor_position == collection_index * 4 + element_index)
+                if (cursor_position == collection_index * max_row_tile_count + element_index)
                 {
                     element.Scale(sf::Vector2f(0.62f, 0.62f));
                     
@@ -323,7 +326,7 @@ int main()
                     selection_rect.setOutlineColor(sf::Color::White);
                     selection_rect.setOutlineThickness(5.0f);
                     selection_rect.setSize(element.GetSize());   
-                    selection_rect.setPosition(element_origin_column, element_origin_row);
+                    selection_rect.setPosition(element_column, element_row);
                     window.draw(selection_rect);
                 }
                 else
@@ -331,11 +334,10 @@ int main()
                     element.ResetScale();
                 }
                 
-                element.Draw(sf::Vector2f(element_origin_column, element_origin_row));
+                element.Draw(sf::Vector2f(element_column, element_row));
             }
             collection_index++;
         }
-
 
         // Update the window
         window.display();
