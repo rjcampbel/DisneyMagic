@@ -19,9 +19,48 @@
 
 // Here is a small helper for you! Have a look.
 #include "ResourcePath.hpp"
+#include <iostream>
+#include <curl/curl.h>
+#include <string>
+#include <rapidjson/document.h>
 
-int main(int, char const**)
+size_t write_data(char *data, size_t memberSize, size_t memberCount, std::string *destination)
 {
+    size_t size = memberSize * memberCount;
+    destination->append(data, size);
+    return size;
+}
+
+int retrieve_file_from_URL(const std::string& url, std::string& fileBuffer)
+{
+    CURL *curl = curl_easy_init();
+    if (curl)
+    {
+        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &fileBuffer);
+        CURLcode res = curl_easy_perform(curl);
+        curl_easy_cleanup(curl);
+        return res;
+    }
+    return 1;
+}
+
+int main()
+{
+    std::string homeApiUrl("https://cd-static.bamgrid.com/dp-117731241344/home.json");
+    std::string homeApiContents;
+    if (retrieve_file_from_URL(homeApiUrl, homeApiContents) != 0)
+    {
+        return EXIT_FAILURE;
+    }
+
+    rapidjson::Document apiDoc;
+    apiDoc.Parse(homeApiContents.c_str());
+    auto& data = apiDoc["data"];
+    auto& collection = data["StandardCollection"];
+    auto& containers = collection["containers"];
+
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
 
