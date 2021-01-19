@@ -125,14 +125,16 @@ int main()
 
     // Set the Icon
     sf::Image icon;
-    if (!icon.loadFromFile(resourcePath() + "DisneyPlus.png")) {
+    if (!icon.loadFromFile(resourcePath() + "DisneyPlus.png")) 
+    {
         return EXIT_FAILURE;
     }
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     // Create a graphical text to display
     sf::Font font;
-    if (!font.loadFromFile(resourcePath() + "sansation.ttf")) {
+    if (!font.loadFromFile(resourcePath() + "sansation.ttf")) 
+    {
         return EXIT_FAILURE;
     }
     sf::Text text("Hello SFML", font, 50);
@@ -146,12 +148,14 @@ int main()
         while (window.pollEvent(event))
         {
             // Close window: exit
-            if (event.type == sf::Event::Closed) {
+            if (event.type == sf::Event::Closed) 
+            {
                 window.close();
             }
 
             // Escape pressed: exit
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) 
+            {
                 window.close();
             }
         }
