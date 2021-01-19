@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9458A71925B71DBE003C3882 /* Avenir.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 9458A71825B71DBE003C3882 /* Avenir.ttc */; };
 		94869CC725B6669600EDB5AF /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94869CC625B6669600EDB5AF /* libcurl.a */; };
 		94869CC925B6737100EDB5AF /* libcurl.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 94869CC825B6737100EDB5AF /* libcurl.4.dylib */; };
 		94869CCC25B673C400EDB5AF /* libcurl.4.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94869CCB25B673C400EDB5AF /* libcurl.4.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -58,6 +59,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9458A71825B71DBE003C3882 /* Avenir.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Avenir.ttc; sourceTree = "<group>"; };
 		94869CC625B6669600EDB5AF /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = DisneyMagic/lib/libcurl.a; sourceTree = "<group>"; };
 		94869CC825B6737100EDB5AF /* libcurl.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.4.dylib; path = DisneyMagic/lib/libcurl.4.dylib; sourceTree = "<group>"; };
 		94869CCA25B673C400EDB5AF /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = DisneyMagic/lib/libcurl.a; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		94DBF19225B624370042EC4D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9458A71825B71DBE003C3882 /* Avenir.ttc */,
 				94B8973225B718DD004057FC /* DisneyPlus.png */,
 				94DBF19725B624370042EC4D /* sansation.ttf */,
 			);
@@ -251,6 +254,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9458A71925B71DBE003C3882 /* Avenir.ttc in Resources */,
 				94DBF1D725B62AB90042EC4D /* DisneyMagic-Info.plist in Resources */,
 				94B8973325B718DD004057FC /* DisneyPlus.png in Resources */,
 				94DBF19825B624370042EC4D /* sansation.ttf in Resources */,

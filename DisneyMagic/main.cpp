@@ -133,12 +133,12 @@ int main()
 
     // Create a graphical text to display
     sf::Font font;
-    if (!font.loadFromFile(resourcePath() + "sansation.ttf")) 
+    if (!font.loadFromFile(resourcePath() + "Avenir.ttc")) 
     {
         return EXIT_FAILURE;
     }
     sf::Text text("Hello SFML", font, 50);
-    text.setFillColor(sf::Color::Black);
+    text.setFillColor(sf::Color::White);
 
     // Start the game loop
     while (window.isOpen())
