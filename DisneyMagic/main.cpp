@@ -1,23 +1,5 @@
-
-//
-// Disclaimer:
-// ----------
-//
-// This code will work only if you selected window, graphics and audio.
-//
-// Note that the "Run Script" build phase will copy the required frameworks
-// or dylibs to your application bundle so you can execute it on any OS X
-// computer.
-//
-// Your resource files (images, sounds, fonts, ...) are also copied to your
-// application bundle. To get the path to these resources, use the helper
-// function `resourcePath()` from ResourcePath.hpp
-//
-
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
-
-// Here is a small helper for you! Have a look.
 #include "ResourcePath.hpp"
 #include <iostream>
 #include <curl/curl.h>
@@ -35,7 +17,7 @@ size_t write_data(char *data, size_t memberSize, size_t memberCount, std::string
 int retrieve_file_from_URL(const std::string& url, std::string& fileBuffer)
 {
     CURL *curl = curl_easy_init();
-    if (curl)
+    if (curl != nullptr)
     {
         curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
@@ -50,10 +32,41 @@ int retrieve_file_from_URL(const std::string& url, std::string& fileBuffer)
 class CollectionElement
 {
 public:
-    CollectionElement(const std::string& title, const std::string& image_url) :
+    CollectionElement(const std::string& title, const std::string& image_url, sf::RenderWindow& window, const sf::Font& font) :
         title(title),
-        image_url(image_url)
-    {}
+        image_url(image_url),
+        window(window),
+        font(font),
+        has_image(false)
+    {
+        std::string image_buffer;
+        if (retrieve_file_from_URL(image_url.c_str(), image_buffer) == CURLE_OK)
+        {
+            if (image.loadFromMemory(image_buffer.data(), image_buffer.size()))
+            {
+                sprite.setTexture(image);
+                sprite.setScale(0.6f, 0.6f);
+                has_image = true;;
+            }
+        }
+
+        sf::Text element_text(title, font, 24);
+        element_text.setFillColor(sf::Color::White);
+    }
+
+    void Draw(const sf::Vector2f& position)
+    {
+        if (has_image)
+        {
+            sprite.setPosition(position);            
+            window.draw(sprite);
+        }
+        else
+        {
+            text.setPosition(position);
+            window.draw(text);
+        }
+    }
 
     std::string GetTitle() const
     {
@@ -64,9 +77,16 @@ public:
     {
         return image_url;
     }
+
 private:
     const std::string title;
     std::string image_url;
+    sf::Texture image;
+    sf::Sprite sprite;
+    sf::Text text;
+    sf::RenderWindow& window;
+    const sf::Font& font;
+    bool has_image;
 };
 
 class Collection
@@ -106,6 +126,24 @@ int main()
     std::string homeApiUrl("https://cd-static.bamgrid.com/dp-117731241344/home.json");
     std::string homeApiContents;
     if (retrieve_file_from_URL(homeApiUrl, homeApiContents) != 0)
+    {
+        return EXIT_FAILURE;
+    }
+ 
+    // Create the main window
+    sf::RenderWindow window(sf::VideoMode(1600, 1200), "Disney+");
+
+    // Set the Icon
+    sf::Image icon;
+    if (!icon.loadFromFile(resourcePath() + "DisneyPlus.png")) 
+    {
+        return EXIT_FAILURE;
+    }
+    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+
+    // Create a graphical text to display
+    sf::Font font;
+    if (!font.loadFromFile(resourcePath() + "Avenir.ttc")) 
     {
         return EXIT_FAILURE;
     }
@@ -171,28 +209,10 @@ int main()
                 auto& image_default = image_series["default"];
                 auto& image_url = image_default["url"];
 
-                CollectionElement element(title_content.GetString(), image_url.GetString());
+                CollectionElement element(title_content.GetString(), image_url.GetString(), window, font);
                 collections.back().AddElement(element);
             }
         }
-    }
- 
-    // Create the main window
-    sf::RenderWindow window(sf::VideoMode(1600, 1200), "Disney+");
-
-    // Set the Icon
-    sf::Image icon;
-    if (!icon.loadFromFile(resourcePath() + "DisneyPlus.png")) 
-    {
-        return EXIT_FAILURE;
-    }
-    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-
-    // Create a graphical text to display
-    sf::Font font;
-    if (!font.loadFromFile(resourcePath() + "Avenir.ttc")) 
-    {
-        return EXIT_FAILURE;
     }
 
     // Start the game loop
@@ -222,7 +242,7 @@ int main()
         const double row_offset{ 10 };
         const double row_size{ 250 };
         const double collection_origin_column{ 10 };
-        for (const auto& collection : collections)
+        for (auto& collection : collections)
         {
             double collection_origin_row{ row_offset + collection_index * row_size };
             unsigned int font_size { 24 };
@@ -236,27 +256,8 @@ int main()
             {
                 double element_origin_row{ collection_origin_row + font_size + 10 };
                 double element_origin_column{ collection_origin_column + element_index * element_width };
-
-                const auto& element = collection.GetElement(element_index);
-                std::string image_buffer;
-                retrieve_file_from_URL(element.GetImageUrl().c_str(), image_buffer);
-
-                sf::Texture image;
-                if (image.loadFromMemory(image_buffer.data(), image_buffer.size()))
-                {
-                    sf::Sprite sprite(image);
-                    sprite.setPosition(element_origin_column, element_origin_row);
-                    sprite.setScale(0.6f, 0.6f);
-                    window.draw(sprite);
-                }
-                else
-                {
-                    // If image fails to load, fall back to displaying the program title
-                    sf::Text element_text(element.GetTitle(), font, font_size);
-                    element_text.setFillColor(sf::Color::White);
-                    element_text.setPosition(element_origin_column, element_origin_row);
-                    window.draw(element_text);
-                }
+                auto element = collection.GetElement(element_index);
+                element.Draw(sf::Vector2f(element_origin_column, element_origin_row));
             }
             collection_index++;
         }
