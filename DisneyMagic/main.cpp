@@ -23,6 +23,7 @@
 #include <curl/curl.h>
 #include <string>
 #include <rapidjson/document.h>
+#include <algorithm>
 
 size_t write_data(char *data, size_t memberSize, size_t memberCount, std::string *destination)
 {
@@ -217,14 +218,36 @@ int main()
         // Clear screen
         window.clear();
 
-        size_t collection_index = 0;
-        const size_t row_size = 300;
+        size_t collection_index{ 0 };
+        const double row_size{ 300 };
         for (const auto& collection : collections)
         {
-            sf::Text text(collection.GetTitle().c_str(), font, 24);
+            double collection_origin_row{ collection_index * row_size };
+            double collection_origin_column{ 0 };
+            unsigned int font_size { 24 };
+            sf::Text text(collection.GetTitle().c_str(), font, font_size);
             text.setFillColor(sf::Color::White);
-            text.setPosition(0.0f, 0.0f + collection_index++ * row_size);
+            text.setPosition(collection_origin_column, collection_origin_row);
             window.draw(text);
+
+            const double element_width{ 250 };
+            for (size_t element_index = 0; element_index < std::min((size_t)4, collection.GetElementCount()); ++element_index)
+            {
+                double element_origin_row{ collection_origin_row + font_size + 10 };
+                double element_origin_column{ element_index * element_width };
+
+                std::string image_buffer;
+                retrieve_file_from_URL(collection.GetElement(element_index).GetImageUrl().c_str(), image_buffer);
+
+                sf::Texture image;
+                if (image.loadFromMemory(image_buffer.data(), image_buffer.size()));
+                {
+                    sf::Sprite sprite(image);
+                    sprite.setPosition(element_origin_column, element_origin_row);
+                    window.draw(sprite);
+                }
+            }
+            collection_index++;
         }
 
         // Update the window
