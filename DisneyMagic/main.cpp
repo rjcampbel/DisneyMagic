@@ -219,12 +219,12 @@ int main()
         window.clear();
 
         size_t collection_index{ 0 };
-        size_t row_offset{ 10 };
+        const double row_offset{ 10 };
         const double row_size{ 250 };
+        const double collection_origin_column{ 10 };
         for (const auto& collection : collections)
         {
             double collection_origin_row{ row_offset + collection_index * row_size };
-            double collection_origin_column{ 10 };
             unsigned int font_size { 24 };
             sf::Text collection_text(collection.GetTitle().c_str(), font, font_size);
             collection_text.setFillColor(sf::Color::White);
@@ -260,6 +260,14 @@ int main()
             }
             collection_index++;
         }
+
+        sf::RectangleShape selection_rect;
+        selection_rect.setFillColor(sf::Color::Transparent);
+        selection_rect.setOutlineColor(sf::Color::White);
+        selection_rect.setOutlineThickness(5.0f);
+        selection_rect.setSize(sf::Vector2f(120.f, 50.f));   
+        selection_rect.setPosition(collection_origin_column, row_offset);
+        window.draw(selection_rect);
 
         // Update the window
         window.display();
