@@ -29,6 +29,8 @@ int retrieve_file_from_URL(const std::string& url, std::string& fileBuffer)
     return 1;
 }
 
+static const sf::Vector2f kDefaultImageScale(0.6f, 0.6f);
+
 class CollectionElement
 {
 public:
@@ -45,13 +47,25 @@ public:
             if (image.loadFromMemory(image_buffer.data(), image_buffer.size()))
             {
                 sprite.setTexture(image);
-                sprite.setScale(0.6f, 0.6f);
-                has_image = true;;
+                sprite.setScale(kDefaultImageScale);
+                has_image = true;
             }
         }
 
-        sf::Text element_text(title, font, 24);
-        element_text.setFillColor(sf::Color::White);
+        text.setString(title);
+        text.setFont(font);
+        text.setCharacterSize(24);
+        text.setFillColor(sf::Color::White);
+    }
+
+    void Scale(const sf::Vector2f& factors)
+    {
+        sprite.setScale(factors);
+    }
+
+    void ResetScale()
+    {
+        sprite.setScale(kDefaultImageScale);
     }
 
     void Draw(const sf::Vector2f& position)
@@ -68,14 +82,16 @@ public:
         }
     }
 
-    std::string GetTitle() const
+    sf::Vector2f GetSize() const
     {
-        return title;
-    }
-
-    std::string GetImageUrl() const
-    {
-        return image_url;
+        if (has_image)
+        {
+            return sf::Vector2f(sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
+        }
+        else
+        {
+            return sf::Vector2f(text.getGlobalBounds().width, text.getGlobalBounds().height);
+        }
     }
 
 private:
@@ -154,6 +170,7 @@ int main()
     auto& collection = data["StandardCollection"];
     auto& containers = collection["containers"];
 
+    int cursor_position = 0;
     std::vector<Collection> collections;
     for (const auto& container : containers.GetArray())
     {
@@ -229,9 +246,48 @@ int main()
             }
 
             // Escape pressed: exit
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) 
+            if (event.type == sf::Event::KeyPressed)
             {
-                window.close();
+                switch (event.key.code)
+                {
+                    case sf::Keyboard::Escape:
+                    {
+                        window.close();
+                        break;
+                    }
+                    case sf::Keyboard::Left:
+                    {
+                        if (cursor_position % 4 > 0)
+                        {
+                            --cursor_position;
+                        }
+                        break;
+                    }
+                    case sf::Keyboard::Right:
+                    {
+                        if (cursor_position % 4 < 3 )
+                        {
+                            ++cursor_position;
+                        }
+                        break;
+                    }
+                    case sf::Keyboard::Up:
+                    {
+                        if (cursor_position / 4 > 0)
+                        {
+                            cursor_position -= 4;
+                        }
+                        break;
+                    }
+                    case sf::Keyboard::Down:
+                    {
+                        if (cursor_position / 4 < 3)
+                        {
+                            cursor_position += 4;
+                        }
+                    }
+                    default: break;
+                }
             }
         }
 
@@ -252,23 +308,34 @@ int main()
             window.draw(collection_text);
 
             const double element_width{ 325 };
-            for (size_t element_index = 0; element_index < std::min((size_t)4, collection.GetElementCount()); ++element_index)
+            for (size_t element_index = 0; element_index < std::min((size_t)4, collection.GetElementCount()); ++element_index) // Display a maximum of 4 images per row -- allow more images in a future revision
             {
                 double element_origin_row{ collection_origin_row + font_size + 10 };
                 double element_origin_column{ collection_origin_column + element_index * element_width };
                 auto element = collection.GetElement(element_index);
+
+                if (cursor_position == collection_index * 4 + element_index)
+                {
+                    element.Scale(sf::Vector2f(0.62f, 0.62f));
+                    
+                    sf::RectangleShape selection_rect;
+                    selection_rect.setFillColor(sf::Color::Transparent);
+                    selection_rect.setOutlineColor(sf::Color::White);
+                    selection_rect.setOutlineThickness(5.0f);
+                    selection_rect.setSize(element.GetSize());   
+                    selection_rect.setPosition(element_origin_column, element_origin_row);
+                    window.draw(selection_rect);
+                }
+                else
+                {
+                    element.ResetScale();
+                }
+                
                 element.Draw(sf::Vector2f(element_origin_column, element_origin_row));
             }
             collection_index++;
         }
 
-        sf::RectangleShape selection_rect;
-        selection_rect.setFillColor(sf::Color::Transparent);
-        selection_rect.setOutlineColor(sf::Color::White);
-        selection_rect.setOutlineThickness(5.0f);
-        selection_rect.setSize(sf::Vector2f(120.f, 50.f));   
-        selection_rect.setPosition(collection_origin_column, row_offset);
-        window.draw(selection_rect);
 
         // Update the window
         window.display();
