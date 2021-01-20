@@ -169,26 +169,26 @@ int main()
             }
         }
 
-        // Clear screen
-        window.clear();
-
+        // Render row titles, tiles, and cursor
         size_t collection_index { 0 };
-
         for (auto& collection : collections)
         {
             double collection_row { row_offset + collection_index * row_size };
+
+            // Render the title for current row
             sf::Text collection_text(collection.GetTitle().c_str(), font, font_size);
             collection_text.setFillColor(sf::Color::White);
             collection_text.setPosition(column_offset, collection_row);
             window.draw(collection_text);
 
-            for (size_t element_index = 0; element_index < std::min(max_row_tile_count, collection.GetElementCount()); ++element_index)
+            // Render the tiles and selection cursor
+            for (size_t tile_index = 0; tile_index < std::min(max_row_tile_count, collection.GetElementCount()); ++tile_index)
             {
                 double tile_row { collection_row + font_size + 10 };
-                double tile_column { column_offset + element_index * tile_width };
-                auto element = collection.GetElement(element_index);
+                double tile_column { column_offset + tile_index * tile_width };
+                auto element = collection.GetElement(tile_index);
 
-                if (cursor_position == collection_index * max_row_tile_count + element_index)
+                if (cursor_position == collection_index * max_row_tile_count + tile_index)
                 {
                     element.SetScale(kEnhancedImageScale);
                     
@@ -210,6 +210,8 @@ int main()
             collection_index++;
         }
 
+        // Update display
+        window.clear();
         window.display();
     }
 
