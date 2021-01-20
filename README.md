@@ -9,13 +9,13 @@ This project was build with Xcode 10.1
 If you have Xcode Command Line Tools installed, run `xcodebuild` from the project root.
 # Using the app
 Launch the app as you normally would. Select a tile using the arrow keys. No further interaction with the tiles has been implemented at this time.
-### License
+# License
 This project using the following open source libraries:
 * SFML for graphics (https://www.sfml-dev.org/license.php)
 * libcurl for http file transfers (https://curl.se/docs/copyright.html)
 * RapidJSON for JSON parsing
 
-# RapidJSON License
+## RapidJSON License
 Tencent is pleased to support the open source community by making RapidJSON available. 
  
 Copyright (C) 2015 THL A29 Limited, a Tencent company, and Milo Yip.  All rights reserved.
