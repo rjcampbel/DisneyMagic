@@ -1,148 +1,21 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "ResourcePath.hpp"
+#include "CurlHelpers.h"
+#include "Collection.h"
 #include <iostream>
-#include <curl/curl.h>
 #include <string>
 #include <rapidjson/document.h>
 #include <algorithm>
 
-size_t write_data(char *data, size_t memberSize, size_t memberCount, std::string *destination)
-{
-    size_t size = memberSize * memberCount;
-    destination->append(data, size);
-    return size;
-}
-
-int retrieve_file_from_URL(const std::string& url, std::string& fileBuffer)
-{
-    CURL *curl = curl_easy_init();
-    if (curl != nullptr)
-    {
-        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &fileBuffer);
-        CURLcode res = curl_easy_perform(curl);
-        curl_easy_cleanup(curl);
-        return res;
-    }
-    return 1;
-}
-
 static const sf::Vector2f kDefaultImageScale(0.6f, 0.6f);
 static const sf::Vector2f kEnhancedImageScale(0.62f, 0.62f);
-
-class CollectionElement
-{
-public:
-    CollectionElement(const std::string& title, const std::string& image_url, sf::RenderWindow& window, const sf::Font& font) :
-        title(title),
-        image_url(image_url),
-        window(window),
-        font(font),
-        has_image(false)
-    {
-        std::string image_buffer;
-        if (retrieve_file_from_URL(image_url.c_str(), image_buffer) == CURLE_OK)
-        {
-            if (image.loadFromMemory(image_buffer.data(), image_buffer.size()))
-            {
-                sprite.setTexture(image);
-                sprite.setScale(kDefaultImageScale);
-                has_image = true;
-            }
-        }
-
-        text.setString(title);
-        text.setFont(font);
-        text.setCharacterSize(24);
-        text.setFillColor(sf::Color::White);
-    }
-
-    void Scale(const sf::Vector2f& factors)
-    {
-        sprite.setScale(factors);
-    }
-
-    void ResetScale()
-    {
-        sprite.setScale(kDefaultImageScale);
-    }
-
-    void Draw(const sf::Vector2f& position)
-    {
-        if (has_image)
-        {
-            sprite.setPosition(position);            
-            window.draw(sprite);
-        }
-        else
-        {
-            text.setPosition(position);
-            window.draw(text);
-        }
-    }
-
-    sf::Vector2f GetSize() const
-    {
-        if (has_image)
-        {
-            return sf::Vector2f(sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
-        }
-        else
-        {
-            return sf::Vector2f(text.getGlobalBounds().width, text.getGlobalBounds().height);
-        }
-    }
-
-private:
-    const std::string title;
-    std::string image_url;
-    sf::Texture image;
-    sf::Sprite sprite;
-    sf::Text text;
-    sf::RenderWindow& window;
-    const sf::Font& font;
-    bool has_image;
-};
-
-class Collection
-{
-public:
-    Collection(const std::string& title) : 
-        title(title)
-    {}
-
-    void AddElement(const CollectionElement& element)
-    {
-        elements.push_back(element);
-    }
-
-    std::string GetTitle() const
-    {
-        return title;
-    }
-
-    size_t GetElementCount() const
-    {
-        return elements.size();
-    }
-
-    CollectionElement GetElement(size_t index) const
-    {
-        return elements[index];
-    }
-
-private:
-    std::string title;
-    std::vector<CollectionElement> elements;
-};
 
 int main()
 {
     std::string homeApiUrl("https://cd-static.bamgrid.com/dp-117731241344/home.json");
     std::string homeApiContents;
-    if (retrieve_file_from_URL(homeApiUrl, homeApiContents) != 0)
+    if (curlhelpers::retrieve_file_from_URL(homeApiUrl, homeApiContents) != 0)
     {
         return EXIT_FAILURE;
     }
@@ -171,7 +44,7 @@ int main()
     auto& collection = data["StandardCollection"];
     auto& containers = collection["containers"];
 
-    std::vector<Collection> collections;
+    std::vector<disneymagic::Collection> collections;
     for (const auto& container : containers.GetArray())
     {
         auto& collection_set = container["set"];
@@ -185,7 +58,7 @@ int main()
             auto& collection_title_default = collection_title_set["default"];
             auto& collection_title_content = collection_title_default["content"];
 
-            collections.emplace_back(Collection(collection_title_content.GetString()));
+            collections.emplace_back(disneymagic::Collection(collection_title_content.GetString()));
             auto& items = collection_set["items"];
             for (const auto& item : items.GetArray())
             {
@@ -226,7 +99,7 @@ int main()
                 auto& image_default = image_series["default"];
                 auto& image_url = image_default["url"];
 
-                CollectionElement element(title_content.GetString(), image_url.GetString(), window, font);
+                disneymagic::CollectionElement element(title_content.GetString(), image_url.GetString(), window, font);
                 collections.back().AddElement(element);
             }
         }
@@ -320,7 +193,7 @@ int main()
 
                 if (cursor_position == collection_index * max_row_tile_count + element_index)
                 {
-                    element.Scale(kEnhancedImageScale);
+                    element.SetScale(kEnhancedImageScale);
                     
                     sf::RectangleShape selection_rect;
                     selection_rect.setFillColor(sf::Color::Transparent);
@@ -332,7 +205,7 @@ int main()
                 }
                 else
                 {
-                    element.ResetScale();
+                    element.SetScale(kDefaultImageScale);
                 }
                 
                 element.Draw(sf::Vector2f(element_column, element_row));

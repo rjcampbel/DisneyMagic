@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9401579D25B86E4700019D9D /* CurlHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9401579A25B86E4700019D9D /* CurlHelpers.cpp */; };
+		9401579E25B86E4700019D9D /* Collection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9401579C25B86E4700019D9D /* Collection.cpp */; };
 		9458A71925B71DBE003C3882 /* Avenir.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 9458A71825B71DBE003C3882 /* Avenir.ttc */; };
 		94869CC725B6669600EDB5AF /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94869CC625B6669600EDB5AF /* libcurl.a */; };
 		94869CC925B6737100EDB5AF /* libcurl.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 94869CC825B6737100EDB5AF /* libcurl.4.dylib */; };
@@ -56,6 +58,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9401579925B86E4700019D9D /* CurlHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurlHelpers.h; sourceTree = "<group>"; };
+		9401579A25B86E4700019D9D /* CurlHelpers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CurlHelpers.cpp; sourceTree = "<group>"; };
+		9401579B25B86E4700019D9D /* Collection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Collection.h; sourceTree = "<group>"; };
+		9401579C25B86E4700019D9D /* Collection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Collection.cpp; sourceTree = "<group>"; };
 		9458A71825B71DBE003C3882 /* Avenir.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Avenir.ttc; sourceTree = "<group>"; };
 		94869CC625B6669600EDB5AF /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = DisneyMagic/lib/libcurl.a; sourceTree = "<group>"; };
 		94869CC825B6737100EDB5AF /* libcurl.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.4.dylib; path = DisneyMagic/lib/libcurl.4.dylib; sourceTree = "<group>"; };
@@ -127,6 +133,10 @@
 		94DBF18A25B624370042EC4D /* DisneyMagic */ = {
 			isa = PBXGroup;
 			children = (
+				9401579C25B86E4700019D9D /* Collection.cpp */,
+				9401579B25B86E4700019D9D /* Collection.h */,
+				9401579A25B86E4700019D9D /* CurlHelpers.cpp */,
+				9401579925B86E4700019D9D /* CurlHelpers.h */,
 				94DBF18D25B624370042EC4D /* ResourcePath.mm */,
 				94DBF18F25B624370042EC4D /* ResourcePath.hpp */,
 				94DBF19025B624370042EC4D /* main.cpp */,
@@ -256,6 +266,8 @@
 			files = (
 				94DBF19125B624370042EC4D /* main.cpp in Sources */,
 				94DBF18E25B624370042EC4D /* ResourcePath.mm in Sources */,
+				9401579D25B86E4700019D9D /* CurlHelpers.cpp in Sources */,
+				9401579E25B86E4700019D9D /* Collection.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +294,7 @@
 					"$(inherited)",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"$(SFML_SYSTEM)",
@@ -326,6 +339,7 @@
 					"$(inherited)",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"$(SFML_SYSTEM)",
