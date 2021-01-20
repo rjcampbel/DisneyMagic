@@ -10,6 +10,12 @@
 
 static const sf::Vector2f kDefaultImageScale(0.6f, 0.6f);
 static const sf::Vector2f kEnhancedImageScale(0.62f, 0.62f);
+static const size_t max_row_tile_count { 4 };
+static const double row_offset { 10 };
+static const double row_size { 250 };
+static const double column_offset { 10 };
+static const double font_size { 24 };
+static const double tile_width{ 325 };
 
 int main()
 {
@@ -106,9 +112,7 @@ int main()
     }
 
     int cursor_position { 0 };
-
-    const size_t max_row_tile_count { 4 };
-    
+   
     while (window.isOpen())
     {
         // Process events
@@ -171,24 +175,19 @@ int main()
         window.clear();
 
         size_t collection_index { 0 };
-        const double row_offset { 10 };
-        const double row_size { 250 };
-        const double column_offset { 10 };
 
         for (auto& collection : collections)
         {
             double collection_row { row_offset + collection_index * row_size };
-            double font_size { 24 };
             sf::Text collection_text(collection.GetTitle().c_str(), font, font_size);
             collection_text.setFillColor(sf::Color::White);
             collection_text.setPosition(column_offset, collection_row);
             window.draw(collection_text);
 
-            const double element_width{ 325 };
             for (size_t element_index = 0; element_index < std::min(max_row_tile_count, collection.GetElementCount()); ++element_index)
             {
                 double element_row { collection_row + font_size + 10 };
-                double element_column { column_offset + element_index * element_width };
+                double element_column { column_offset + element_index * tile_width };
                 auto element = collection.GetElement(element_index);
 
                 if (cursor_position == collection_index * max_row_tile_count + element_index)
@@ -213,7 +212,6 @@ int main()
             collection_index++;
         }
 
-        // Update the window
         window.display();
     }
 
