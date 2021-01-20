@@ -186,8 +186,8 @@ int main()
 
             for (size_t element_index = 0; element_index < std::min(max_row_tile_count, collection.GetElementCount()); ++element_index)
             {
-                double element_row { collection_row + font_size + 10 };
-                double element_column { column_offset + element_index * tile_width };
+                double tile_row { collection_row + font_size + 10 };
+                double tile_column { column_offset + element_index * tile_width };
                 auto element = collection.GetElement(element_index);
 
                 if (cursor_position == collection_index * max_row_tile_count + element_index)
@@ -199,7 +199,7 @@ int main()
                     selection_rect.setOutlineColor(sf::Color::White);
                     selection_rect.setOutlineThickness(5.0f);
                     selection_rect.setSize(element.GetSize());   
-                    selection_rect.setPosition(element_column, element_row);
+                    selection_rect.setPosition(tile_column, tile_row);
                     window.draw(selection_rect);
                 }
                 else
@@ -207,7 +207,7 @@ int main()
                     element.SetScale(kDefaultImageScale);
                 }
                 
-                element.Draw(sf::Vector2f(element_column, element_row));
+                element.Draw(sf::Vector2f(tile_column, tile_row));
             }
             collection_index++;
         }
