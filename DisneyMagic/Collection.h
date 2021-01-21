@@ -15,13 +15,10 @@ public:
     sf::Vector2f GetSize() const;
 
 private:
-    const std::string title;
-    std::string image_url;
     sf::Texture image;
     sf::Sprite sprite;
     sf::Text text;
     sf::RenderWindow& window;
-    const sf::Font& font;
     bool has_image;
 };
 

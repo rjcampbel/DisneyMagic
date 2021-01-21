@@ -5,10 +5,9 @@ namespace disneymagic
 {
 
 CollectionElement::CollectionElement(const std::string& title, const std::string& image_url, sf::RenderWindow& window, const sf::Font& font) :
-    title(title),
-    image_url(image_url),
+    sprite(),
+    text(),
     window(window),
-    font(font),
     has_image(false)
 {
     std::string image_buffer;
