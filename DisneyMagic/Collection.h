@@ -30,7 +30,7 @@ public:
     void AddElement(const CollectionElement& element);
     std::string GetTitle() const;
     size_t GetElementCount() const;
-    CollectionElement GetElement(size_t index) const;
+    const CollectionElement& GetElement(size_t index) const;
 
 private:
     std::string title;

@@ -76,7 +76,7 @@ size_t Collection::GetElementCount() const
     return elements.size();
 }
 
-CollectionElement Collection::GetElement(size_t index) const
+const CollectionElement& Collection::GetElement(size_t index) const
 {
     return elements[index];
 }
