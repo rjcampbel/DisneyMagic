@@ -169,6 +169,9 @@ int main()
             }
         }
 
+        // Clear the display
+        window.clear();
+
         // Render row titles, tiles, and cursor
         size_t collection_index { 0 };
         for (auto& collection : collections)
@@ -211,7 +214,6 @@ int main()
         }
 
         // Update display
-        window.clear();
         window.display();
     }
 
