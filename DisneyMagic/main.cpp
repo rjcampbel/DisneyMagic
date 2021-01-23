@@ -27,25 +27,34 @@ int main()
 {
     std::string homeApiUrl("https://cd-static.bamgrid.com/dp-117731241344/home.json");
     std::string homeApiContents;
-    if (curlhelpers::retrieve_file_from_URL(homeApiUrl, homeApiContents) != 0)
+
+    try
     {
+        curlhelpers::retrieve_file_from_URL(homeApiUrl, homeApiContents);
+    }
+    catch (std::runtime_error& e)
+    {
+        std::cout << e.what() << std::endl;
         return EXIT_FAILURE;
     }
- 
+
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(1600, 1200), "Disney+");
 
     // Set the Icon
     sf::Image icon;
-    if (!icon.loadFromFile(resourcePath() + "DisneyPlus.png")) 
+    if (!icon.loadFromFile(resourcePath() + "DisneyPlus.png"))
     {
-        return EXIT_FAILURE;
+        std::cout << "Failed to load icon image";
     }
-    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+    else
+    {
+        window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+    }
 
     // Create a graphical text to display
     sf::Font font;
-    if (!font.loadFromFile(resourcePath() + "Avenir.ttc")) 
+    if (!font.loadFromFile(resourcePath() + "Avenir.ttc"))
     {
         return EXIT_FAILURE;
     }
@@ -118,14 +127,14 @@ int main()
     }
 
     int cursor_position { 0 };
-   
+
     while (window.isOpen())
     {
         // Process events
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed) 
+            if (event.type == sf::Event::Closed)
             {
                 window.close();
             }
@@ -200,7 +209,7 @@ int main()
                 if (cursor_position == collection_index * max_row_tile_count + tile_index)
                 {
                     element.EnhanceScale(kScaleEnhancementFactor);
-                    
+
                     sf::RectangleShape selection_rect;
                     selection_rect.setFillColor(sf::Color::Transparent);
                     selection_rect.setOutlineColor(sf::Color::White);
@@ -214,7 +223,7 @@ int main()
                 {
                     element.ResetScale();
                 }
-                
+
                 element.Draw(sf::Vector2f(tile_column, tile_row));
             }
             collection_index++;

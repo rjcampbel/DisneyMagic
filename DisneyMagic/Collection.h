@@ -1,7 +1,9 @@
+#pragma once
+
+#include "CurlHelpers.h"
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
-#include "CurlHelpers.h"
 
 namespace disneymagic
 {
@@ -9,11 +11,11 @@ class CollectionElement
 {
 public:
     CollectionElement(
-        const std::string& title, 
+        const std::string& title,
         const std::string& image_url,
         double desired_image_width,
         double desired_image_height,
-        sf::RenderWindow& window, 
+        sf::RenderWindow& window,
         const sf::Font& font);
 
     void EnhanceScale(const sf::Vector2f& factors);
