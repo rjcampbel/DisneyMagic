@@ -212,7 +212,7 @@ int main()
                 }
                 else
                 {
-                    element.ResetScale();;
+                    element.ResetScale();
                 }
                 
                 element.Draw(sf::Vector2f(tile_column, tile_row));
