@@ -8,14 +8,18 @@
 #include <rapidjson/document.h>
 #include <algorithm>
 
-static const sf::Vector2f kDefaultImageScale(0.6f, 0.6f);
-static const sf::Vector2f kEnhancedImageScale(0.62f, 0.62f);
+static const sf::Vector2f kScaleEnhancementFactor(1.033f, 1.033f);
+
 static const size_t max_row_tile_count { 4 };
 static const double row_offset { 10 };
 static const double row_size { 250 };
 static const double column_offset { 10 };
 static const double font_size { 24 };
-static const double tile_width{ 325 };
+static const double tile_width{ 335 };
+
+// image width and height based on an aspect ration 1.78
+static const double image_width { 310 };
+static const double image_height { 174.22 };
 
 int main()
 {
@@ -105,7 +109,7 @@ int main()
                 auto& image_default = image_series["default"];
                 auto& image_url = image_default["url"];
 
-                disneymagic::CollectionElement element(title_content.GetString(), image_url.GetString(), window, font);
+                disneymagic::CollectionElement element(title_content.GetString(), image_url.GetString(), image_width, image_height, window, font);
                 collections.back().AddElement(element);
             }
         }
@@ -193,19 +197,20 @@ int main()
 
                 if (cursor_position == collection_index * max_row_tile_count + tile_index)
                 {
-                    element.SetScale(kEnhancedImageScale);
+                    element.EnhanceScale(kScaleEnhancementFactor);
                     
                     sf::RectangleShape selection_rect;
                     selection_rect.setFillColor(sf::Color::Transparent);
                     selection_rect.setOutlineColor(sf::Color::White);
                     selection_rect.setOutlineThickness(5.0f);
-                    selection_rect.setSize(element.GetSize());   
+                    sf::Vector2f rect_size(image_width * kScaleEnhancementFactor.x, image_height * kScaleEnhancementFactor.y);
+                    selection_rect.setSize(rect_size);
                     selection_rect.setPosition(tile_column, tile_row);
                     window.draw(selection_rect);
                 }
                 else
                 {
-                    element.SetScale(kDefaultImageScale);
+                    element.ResetScale();;
                 }
                 
                 element.Draw(sf::Vector2f(tile_column, tile_row));

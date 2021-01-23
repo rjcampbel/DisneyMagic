@@ -1,14 +1,22 @@
 #include "Collection.h"
 #include "CurlHelpers.h"
+#include <iostream>
 
 namespace disneymagic
 {
 
-CollectionElement::CollectionElement(const std::string& title, const std::string& image_url, sf::RenderWindow& window, const sf::Font& font) :
-    sprite(),
-    text(),
-    window(window),
-    has_image(false)
+CollectionElement::CollectionElement(
+    const std::string& title, 
+    const std::string& image_url, 
+    double desired_image_width,
+    double desired_image_height,
+    sf::RenderWindow& window, 
+    const sf::Font& font) :
+        sprite(),
+        text(),
+        window(window),
+        has_image(false),
+        default_scale()
 {
     std::string image_buffer;
     if (curlhelpers::retrieve_file_from_URL(image_url.c_str(), image_buffer) == CURLE_OK)
@@ -19,16 +27,25 @@ CollectionElement::CollectionElement(const std::string& title, const std::string
             has_image = true;
         }
     }
-
+    
+    default_scale.x = desired_image_width / image.getSize().x;
+    default_scale.y = desired_image_height / image.getSize().y;
+    sprite.setScale(default_scale);
     text.setString(title);
     text.setFont(font);
     text.setCharacterSize(24);
     text.setFillColor(sf::Color::White);
 }
 
-void CollectionElement::SetScale(const sf::Vector2f& factors)
+void CollectionElement::EnhanceScale(const sf::Vector2f& factors)
 {
-    sprite.setScale(factors);
+    sf::Vector2f new_scale(default_scale.x * factors.x, default_scale.y * factors.y);
+    sprite.setScale(new_scale);
+}
+
+void CollectionElement::ResetScale()
+{
+    sprite.setScale(default_scale);
 }
 
 void CollectionElement::Draw(const sf::Vector2f& position)

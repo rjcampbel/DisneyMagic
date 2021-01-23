@@ -8,9 +8,16 @@ namespace disneymagic
 class CollectionElement
 {
 public:
-    CollectionElement(const std::string& title, const std::string& image_url, sf::RenderWindow& window, const sf::Font& font);
+    CollectionElement(
+        const std::string& title, 
+        const std::string& image_url,
+        double desired_image_width,
+        double desired_image_height,
+        sf::RenderWindow& window, 
+        const sf::Font& font);
 
-    void SetScale(const sf::Vector2f& factors);
+    void EnhanceScale(const sf::Vector2f& factors);
+    void ResetScale();
     void Draw(const sf::Vector2f& position);
     sf::Vector2f GetSize() const;
 
@@ -20,6 +27,7 @@ private:
     sf::Text text;
     sf::RenderWindow& window;
     bool has_image;
+    sf::Vector2f default_scale;
 };
 
 class Collection
