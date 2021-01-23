@@ -8,18 +8,20 @@
 #include <rapidjson/document.h>
 #include <algorithm>
 
-static const sf::Vector2f kScaleEnhancementFactor(1.033f, 1.033f);
 
 static const size_t max_row_tile_count { 4 };
 static const double row_offset { 10 };
-static const double row_size { 250 };
+static const double row_width { 250 };
 static const double column_offset { 10 };
+static const double column_width{ 335 };
 static const double font_size { 24 };
-static const double tile_width{ 335 };
 
 // image width and height based on an aspect ration 1.78
 static const double image_width { 310 };
 static const double image_height { 174.22 };
+
+// factor used to scale up the currently selected tile
+static const sf::Vector2f kScaleEnhancementFactor(1.033f, 1.033f);
 
 int main()
 {
@@ -180,7 +182,7 @@ int main()
         size_t collection_index { 0 };
         for (auto& collection : collections)
         {
-            double collection_row { row_offset + collection_index * row_size };
+            double collection_row { row_offset + collection_index * row_width };
 
             // Render the title for current row
             sf::Text collection_text(collection.GetTitle().c_str(), font, font_size);
@@ -192,7 +194,7 @@ int main()
             for (size_t tile_index = 0; tile_index < std::min(max_row_tile_count, collection.GetElementCount()); ++tile_index)
             {
                 double tile_row { collection_row + font_size + 10 };
-                double tile_column { column_offset + tile_index * tile_width };
+                double tile_column { column_offset + tile_index * column_width };
                 auto element = collection.GetElement(tile_index);
 
                 if (cursor_position == collection_index * max_row_tile_count + tile_index)

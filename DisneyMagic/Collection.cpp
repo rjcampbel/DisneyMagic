@@ -62,18 +62,6 @@ void CollectionElement::Draw(const sf::Vector2f& position)
     }
 }
 
-sf::Vector2f CollectionElement::GetSize() const
-{
-    if (has_image)
-    {
-        return sf::Vector2f(sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
-    }
-    else
-    {
-        return sf::Vector2f(text.getGlobalBounds().width, text.getGlobalBounds().height);
-    }
-}
-
 Collection::Collection(const std::string& title) : 
     title(title)
 {}

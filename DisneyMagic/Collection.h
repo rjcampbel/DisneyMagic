@@ -19,7 +19,6 @@ public:
     void EnhanceScale(const sf::Vector2f& factors);
     void ResetScale();
     void Draw(const sf::Vector2f& position);
-    sf::Vector2f GetSize() const;
 
 private:
     sf::Texture image;
