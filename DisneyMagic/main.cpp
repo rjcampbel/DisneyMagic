@@ -8,8 +8,8 @@
 #include <rapidjson/document.h>
 #include <algorithm>
 
-
 static const size_t max_row_tile_count { 4 };
+static const size_t row_count { 4 };
 static const double row_offset { 10 };
 static const double row_width { 250 };
 static const double column_offset { 10 };
@@ -128,6 +128,7 @@ int main()
 
     int cursor_position { 0 };
 
+    std::vector<int> first_element_index_per_row(row_count, 0);
     while (window.isOpen())
     {
         // Process events
@@ -154,6 +155,14 @@ int main()
                         {
                             --cursor_position;
                         }
+                        else
+                        {
+                            int row_index = cursor_position / max_row_tile_count;
+                            if (first_element_index_per_row[row_index] > 0)
+                            {
+                                --first_element_index_per_row[row_index];
+                            }
+                        }
                         break;
                     }
                     case sf::Keyboard::Right:
@@ -161,6 +170,15 @@ int main()
                         if (cursor_position % max_row_tile_count < (max_row_tile_count - 1) )
                         {
                             ++cursor_position;
+                        }
+                        else
+                        {
+                            int row_index = cursor_position / max_row_tile_count;
+                            int current_row_size = collections.at(row_index).GetElementCount();
+                            if ((first_element_index_per_row[row_index] + max_row_tile_count) < current_row_size)
+                            {
+                                ++first_element_index_per_row[row_index];
+                            }
                         }
                         break;
                     }
@@ -204,7 +222,7 @@ int main()
             {
                 double tile_row { collection_row + font_size + 10 };
                 double tile_column { column_offset + tile_index * column_width };
-                auto element = collection.GetElement(tile_index);
+                auto element = collection.GetElement(tile_index + first_element_index_per_row[collection_index]);
 
                 if (cursor_position == collection_index * max_row_tile_count + tile_index)
                 {
