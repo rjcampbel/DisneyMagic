@@ -90,7 +90,7 @@ size_t Collection::GetElementCount() const
 
 const CollectionElement& Collection::GetElement(size_t index) const
 {
-    return elements[index];
+    return elements.at(index);
 }
 
 }

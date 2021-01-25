@@ -52,7 +52,6 @@ int main()
         window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     }
 
-    // Create a graphical text to display
     sf::Font font;
     if (!font.loadFromFile(resourcePath() + "Avenir.ttc"))
     {
@@ -61,25 +60,18 @@ int main()
 
     rapidjson::Document apiDoc;
     apiDoc.Parse(homeApiContents.c_str());
-    auto& data = apiDoc["data"];
-    auto& collection = data["StandardCollection"];
-    auto& containers = collection["containers"];
+    const auto& containers = apiDoc["data"]["StandardCollection"]["containers"].GetArray();
 
     std::vector<disneymagic::Collection> collections;
-    for (const auto& container : containers.GetArray())
+    for (const auto& container : containers)
     {
         auto& collection_set = container["set"];
         auto& collection_type = collection_set["type"];
         if (strcmp(collection_type.GetString(), "SetRef") != 0)
         {
-            auto& collection_text = collection_set["text"];
-            auto& collection_title = collection_text["title"];
-            auto& collection_full = collection_title["full"];
-            auto& collection_title_set = collection_full["set"];
-            auto& collection_title_default = collection_title_set["default"];
-            auto& collection_title_content = collection_title_default["content"];
+            std::string collection_title = collection_set["text"]["title"]["full"]["set"]["default"]["content"].GetString();
+            collections.emplace_back(disneymagic::Collection(collection_title));
 
-            collections.emplace_back(disneymagic::Collection(collection_title_content.GetString()));
             auto& items = collection_set["items"];
             for (const auto& item : items.GetArray())
             {
@@ -101,26 +93,10 @@ int main()
                     title_type_string = "collection";
                     image_type_string = "default";
                 }
-                else
-                {
-                    std::cout << "Unknown type" << std::endl;
-                }
 
-                auto& text = item["text"];
-                auto& title = text["title"];
-                auto& full = title["full"];
-                auto& title_type = full[title_type_string.c_str()];
-                auto& title_default = title_type["default"];
-                auto& title_content = title_default["content"];
-
-                auto& image = item["image"];
-                auto& tile_image = image["tile"];
-                auto& image_element = tile_image["1.78"]; // ASSUMPTION: every "tile" contains an image with aspect ratio 1.78
-                auto& image_series = image_element[image_type_string.c_str()];
-                auto& image_default = image_series["default"];
-                auto& image_url = image_default["url"];
-
-                disneymagic::CollectionElement element(title_content.GetString(), image_url.GetString(), image_width, image_height, window, font);
+                std::string title_content = item["text"]["title"]["full"][title_type_string.c_str()]["default"]["content"].GetString();
+                std::string image_url = item["image"]["tile"]["1.78"][image_type_string.c_str()]["default"]["url"].GetString();
+                disneymagic::CollectionElement element(title_content, image_url, image_width, image_height, window, font);
                 collections.back().AddElement(element);
             }
         }
@@ -128,7 +104,7 @@ int main()
 
     int cursor_position { 0 };
 
-    std::vector<int> first_element_index_per_row(max_row_count, 0);
+    std::vector<int> first_element_index_per_row(collections.size(), 0);
     int first_collection_index { 0 };
     while (window.isOpen())
     {
@@ -208,7 +184,6 @@ int main()
                         }
                         else
                         {
-                            //if (current_cursor_row < (collections.size() - 1))
                             if (first_collection_index + max_row_count < collections.size())
                             {
                                 ++first_collection_index;
@@ -225,10 +200,11 @@ int main()
         window.clear();
 
         // Render row titles, tiles, and cursor
-        size_t collection_index { 0 };
-        for (auto& collection : collections)
+        size_t row_index { 0 };
+        for (size_t collection_index = first_collection_index; collection_index < first_collection_index + max_row_tile_count; ++collection_index)
         {
-            double collection_row { row_offset + collection_index * row_width };
+            auto& collection = collections.at(collection_index);
+            double collection_row { row_offset + row_index * row_width };
 
             // Render the title for current row
             sf::Text collection_text(collection.GetTitle().c_str(), font, font_size);
@@ -243,7 +219,7 @@ int main()
                 double tile_column { column_offset + tile_index * column_width };
                 auto element = collection.GetElement(tile_index + first_element_index_per_row[collection_index]);
 
-                if (cursor_position == collection_index * max_row_tile_count + tile_index)
+                if (cursor_position == row_index * max_row_tile_count + tile_index)
                 {
                     element.EnhanceScale(kScaleEnhancementFactor);
 
@@ -263,7 +239,7 @@ int main()
 
                 element.Draw(sf::Vector2f(tile_column, tile_row));
             }
-            collection_index++;
+            row_index++;
         }
 
         // Update display
