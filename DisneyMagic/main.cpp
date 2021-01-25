@@ -64,8 +64,7 @@ int main()
     for (const auto& container : apiDoc["data"]["StandardCollection"]["containers"].GetArray())
     {
         auto& collection_set = container["set"];
-        auto& collection_type = collection_set["type"];
-        if (strcmp(collection_type.GetString(), "SetRef") != 0)
+        if (std::strcmp(collection_set["type"].GetString(), "SetRef") != 0)
         {
             std::string collection_title = collection_set["text"]["title"]["full"]["set"]["default"]["content"].GetString();
             collections.emplace_back(disneymagic::Collection(collection_title));
