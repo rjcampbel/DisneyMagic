@@ -72,28 +72,7 @@ int main()
 
             for (const auto& item : collection_set["items"].GetArray())
             {
-                auto& item_type = item["type"];
-                std::string title_type_string;
-                std::string image_type_string;
-                if (strcmp(item_type.GetString(), "DmcSeries") == 0)
-                {
-                    title_type_string = "series";
-                    image_type_string = "series";
-                }
-                else if (strcmp(item_type.GetString(), "DmcVideo") == 0)
-                {
-                    title_type_string = "program";
-                    image_type_string = "program";
-                }
-                else if (strcmp(item_type.GetString(), "StandardCollection") == 0)
-                {
-                    title_type_string = "collection";
-                    image_type_string = "default";
-                }
-
-                std::string title_content = item["text"]["title"]["full"][title_type_string.c_str()]["default"]["content"].GetString();
-                std::string image_url = item["image"]["tile"]["1.78"][image_type_string.c_str()]["default"]["url"].GetString();
-                disneymagic::CollectionElement element(title_content, image_url, image_width, image_height, window, font);
+                disneymagic::CollectionElement element(item, window, font, image_width, image_height);
                 collections.back().AddElement(element);
             }
         }

@@ -7,20 +7,44 @@ namespace disneymagic
 {
 
 CollectionElement::CollectionElement(
-    const std::string& title,
-    const std::string& image_url,
-    double desired_image_width,
-    double desired_image_height,
+    const rapidjson::Value& item,
     sf::RenderWindow& window,
-    const sf::Font& font) :
-        image(),
+    const sf::Font& font,
+    double desired_image_width,
+    double desired_image_height)
+    :   image(),
         sprite(),
-        text(title, font, 24),
+        text(),
         window(window),
         has_image(false),
         default_scale()
 {
+    auto& item_type = item["type"];
+    std::string title_type_string;
+    std::string image_type_string;
+    if (strcmp(item_type.GetString(), "DmcSeries") == 0)
+    {
+        title_type_string = "series";
+        image_type_string = "series";
+    }
+    else if (strcmp(item_type.GetString(), "DmcVideo") == 0)
+    {
+        title_type_string = "program";
+        image_type_string = "program";
+    }
+    else if (strcmp(item_type.GetString(), "StandardCollection") == 0)
+    {
+        title_type_string = "collection";
+        image_type_string = "default";
+    }
+
+    std::string title = item["text"]["title"]["full"][title_type_string.c_str()]["default"]["content"].GetString();
+    std::string image_url = item["image"]["tile"]["1.78"][image_type_string.c_str()]["default"]["url"].GetString();
+
     text.setFillColor(sf::Color::White);
+    text.setString(title);
+    text.setFont(font);
+    text.setCharacterSize(24);
 
     std::string image_buffer;
     try
@@ -43,6 +67,7 @@ CollectionElement::CollectionElement(
         has_image = true;
     }
 }
+
 
 void CollectionElement::EnhanceScale(const sf::Vector2f& factors)
 {

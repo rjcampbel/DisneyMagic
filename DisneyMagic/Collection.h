@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
+#include <rapidjson/document.h>
 
 namespace disneymagic
 {
@@ -11,12 +12,11 @@ class CollectionElement
 {
 public:
     CollectionElement(
-        const std::string& title,
-        const std::string& image_url,
-        double desired_image_width,
-        double desired_image_height,
+        const rapidjson::Value& item,
         sf::RenderWindow& window,
-        const sf::Font& font);
+        const sf::Font& font,
+        double desired_image_width,
+        double desired_image_height);
 
     void EnhanceScale(const sf::Vector2f& factors);
     void ResetScale();
