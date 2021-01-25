@@ -25,19 +25,6 @@ static const sf::Vector2f kScaleEnhancementFactor(1.033f, 1.033f);
 
 int main()
 {
-    std::string homeApiUrl("https://cd-static.bamgrid.com/dp-117731241344/home.json");
-    std::string homeApiContents;
-
-    try
-    {
-        curlhelpers::retrieve_file_from_URL(homeApiUrl, homeApiContents);
-    }
-    catch (std::runtime_error& e)
-    {
-        std::cout << e.what() << std::endl;
-        return EXIT_FAILURE;
-    }
-
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(1600, 1200), "Disney+");
 
@@ -55,6 +42,18 @@ int main()
     sf::Font font;
     if (!font.loadFromFile(resourcePath() + "Avenir.ttc"))
     {
+        return EXIT_FAILURE;
+    }
+
+    std::string homeApiUrl("https://cd-static.bamgrid.com/dp-117731241344/home.json");
+    std::string homeApiContents;
+    try
+    {
+        curlhelpers::retrieve_file_from_URL(homeApiUrl, homeApiContents);
+    }
+    catch (std::runtime_error& e)
+    {
+        std::cout << e.what() << std::endl;
         return EXIT_FAILURE;
     }
 
