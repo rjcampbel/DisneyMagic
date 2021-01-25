@@ -1,4 +1,4 @@
-#include "Collection.h"
+#include "Container.h"
 #include "CurlHelpers.h"
 #include <iostream>
 #include <exception>
@@ -6,7 +6,7 @@
 namespace disneymagic
 {
 
-CollectionElement::CollectionElement(
+ContainerItem::ContainerItem(
     const rapidjson::Value& item,
     sf::RenderWindow& window,
     const sf::Font& font,
@@ -69,18 +69,18 @@ CollectionElement::CollectionElement(
 }
 
 
-void CollectionElement::EnhanceScale(const sf::Vector2f& factors)
+void ContainerItem::EnhanceScale(const sf::Vector2f& factors)
 {
     sf::Vector2f new_scale(default_scale.x * factors.x, default_scale.y * factors.y);
     sprite.setScale(new_scale);
 }
 
-void CollectionElement::ResetScale()
+void ContainerItem::ResetScale()
 {
     sprite.setScale(default_scale);
 }
 
-void CollectionElement::Draw(const sf::Vector2f& position)
+void ContainerItem::Draw(const sf::Vector2f& position)
 {
     if (has_image)
     {
@@ -94,26 +94,26 @@ void CollectionElement::Draw(const sf::Vector2f& position)
     }
 }
 
-Collection::Collection(const std::string& title) :
+Container::Container(const std::string& title) :
     title(title)
 {}
 
-void Collection::AddElement(const CollectionElement& element)
+void Container::AddElement(const ContainerItem& element)
 {
     elements.push_back(element);
 }
 
-std::string Collection::GetTitle() const
+std::string Container::GetTitle() const
 {
     return title;
 }
 
-size_t Collection::GetElementCount() const
+size_t Container::GetElementCount() const
 {
     return elements.size();
 }
 
-const CollectionElement& Collection::GetElement(size_t index) const
+const ContainerItem& Container::GetElement(size_t index) const
 {
     return elements.at(index);
 }

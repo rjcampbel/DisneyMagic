@@ -8,10 +8,10 @@
 
 namespace disneymagic
 {
-class CollectionElement
+class ContainerItem
 {
 public:
-    CollectionElement(
+    ContainerItem(
         const rapidjson::Value& item,
         sf::RenderWindow& window,
         const sf::Font& font,
@@ -31,19 +31,19 @@ private:
     sf::Vector2f default_scale;
 };
 
-class Collection
+class Container
 {
 public:
-    Collection(const std::string& title);
+    Container(const std::string& title);
 
-    void AddElement(const CollectionElement& element);
+    void AddElement(const ContainerItem& element);
     std::string GetTitle() const;
     size_t GetElementCount() const;
-    const CollectionElement& GetElement(size_t index) const;
+    const ContainerItem& GetElement(size_t index) const;
 
 private:
     std::string title;
-    std::vector<CollectionElement> elements;
+    std::vector<ContainerItem> elements;
 };
 
 }

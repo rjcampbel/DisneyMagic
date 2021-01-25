@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "ResourcePath.hpp"
 #include "CurlHelpers.h"
-#include "Collection.h"
+#include "Container.h"
 #include <iostream>
 #include <string>
 #include <rapidjson/document.h>
@@ -60,18 +60,18 @@ int main()
     rapidjson::Document apiDoc;
     apiDoc.Parse(homeApiContents.c_str());
 
-    std::vector<disneymagic::Collection> collections;
+    std::vector<disneymagic::Container> collections;
     for (const auto& container : apiDoc["data"]["StandardCollection"]["containers"].GetArray())
     {
         auto& collection_set = container["set"];
         if (std::strcmp(collection_set["type"].GetString(), "SetRef") != 0)
         {
             std::string collection_title = collection_set["text"]["title"]["full"]["set"]["default"]["content"].GetString();
-            collections.emplace_back(disneymagic::Collection(collection_title));
+            collections.emplace_back(disneymagic::Container(collection_title));
 
             for (const auto& item : collection_set["items"].GetArray())
             {
-                disneymagic::CollectionElement element(item, window, font, image_width, image_height);
+                disneymagic::ContainerItem element(item, window, font, image_width, image_height);
                 collections.back().AddElement(element);
             }
         }
