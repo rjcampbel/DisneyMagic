@@ -9,7 +9,7 @@
 #include <algorithm>
 
 static const size_t max_row_tile_count { 4 };
-static const size_t row_count { 4 };
+static const size_t max_row_count { 4 };
 static const double row_offset { 10 };
 static const double row_width { 250 };
 static const double column_offset { 10 };
@@ -128,7 +128,8 @@ int main()
 
     int cursor_position { 0 };
 
-    std::vector<int> first_element_index_per_row(row_count, 0);
+    std::vector<int> first_element_index_per_row(max_row_count, 0);
+    int first_collection_index { 0 };
     while (window.isOpen())
     {
         // Process events
@@ -188,14 +189,32 @@ int main()
                         {
                             cursor_position -= max_row_tile_count;
                         }
+                        else
+                        {
+                            if (first_collection_index > 0)
+                            {
+                                --first_collection_index;
+                            }
+                        }
+                        std::cout << "Up: " << first_collection_index << std::endl;
                         break;
                     }
                     case sf::Keyboard::Down:
                     {
-                        if (cursor_position / max_row_tile_count < (max_row_tile_count - 1))
+                        int current_cursor_row = cursor_position / max_row_tile_count;
+                        if (current_cursor_row < (max_row_count - 1))
                         {
                             cursor_position += max_row_tile_count;
                         }
+                        else
+                        {
+                            //if (current_cursor_row < (collections.size() - 1))
+                            if (first_collection_index + max_row_count < collections.size())
+                            {
+                                ++first_collection_index;
+                            }
+                        }
+                        std::cout << "Down: " << first_collection_index << std::endl;
                     }
                     default: break;
                 }
