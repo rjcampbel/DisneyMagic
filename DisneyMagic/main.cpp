@@ -60,10 +60,9 @@ int main()
 
     rapidjson::Document apiDoc;
     apiDoc.Parse(homeApiContents.c_str());
-    const auto& containers = apiDoc["data"]["StandardCollection"]["containers"].GetArray();
 
     std::vector<disneymagic::Collection> collections;
-    for (const auto& container : containers)
+    for (const auto& container : apiDoc["data"]["StandardCollection"]["containers"].GetArray())
     {
         auto& collection_set = container["set"];
         auto& collection_type = collection_set["type"];
@@ -72,8 +71,7 @@ int main()
             std::string collection_title = collection_set["text"]["title"]["full"]["set"]["default"]["content"].GetString();
             collections.emplace_back(disneymagic::Collection(collection_title));
 
-            auto& items = collection_set["items"];
-            for (const auto& item : items.GetArray())
+            for (const auto& item : collection_set["items"].GetArray())
             {
                 auto& item_type = item["type"];
                 std::string title_type_string;
