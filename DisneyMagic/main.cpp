@@ -60,20 +60,21 @@ int main()
     rapidjson::Document apiDoc;
     apiDoc.Parse(homeApiContents.c_str());
 
-    std::vector<disneymagic::Container> containers;
-    containers.reserve(max_row_count);
     const auto& container_array = apiDoc["data"]["StandardCollection"]["containers"].GetArray();
-    int row_index { 0 };
-    for (; row_index < max_row_count; ++row_index)
-    {
-        const auto& collection_set = container_array[row_index]["set"];
-        containers.emplace_back(collection_set, window, font, image_width, image_height);
-    }
+    std::vector<disneymagic::Container> containers;
+    containers.reserve(container_array.Size());
 
-    int cursor_position { 0 };
+    disneymagic::ContainerFactory container_factory(window, font, image_width, image_height);
+    std::transform(
+        container_array.begin(),
+        container_array.begin() + 4,
+        std::back_inserter(containers),
+        container_factory);
 
     std::vector<int> first_item_index_per_row(containers.size(), 0);
+    int cursor_position { 0 };
     int first_collection_index { 0 };
+
     while (window.isOpen())
     {
         // Process events

@@ -8,6 +8,8 @@
 
 namespace disneymagic
 {
+
+
 class ContainerItem
 {
 public:
@@ -35,7 +37,7 @@ class Container
 {
 public:
     Container(
-        const rapidjson::Value& collection_set,
+        const rapidjson::Value& container,
         sf::RenderWindow& window,
         const sf::Font& font,
         double desired_image_width,
@@ -48,6 +50,24 @@ public:
 private:
     std::string title;
     std::vector<ContainerItem> items;
+};
+
+class ContainerFactory
+{
+public:
+    ContainerFactory(
+        sf::RenderWindow& window,
+        const sf::Font& font,
+        double desired_image_width,
+        double desired_image_height);
+
+    Container operator()(const rapidjson::Value& collection_set);
+
+private:
+    sf::RenderWindow& window;
+    const sf::Font& font;
+    double desired_image_width;
+    double desired_image_height;
 };
 
 }

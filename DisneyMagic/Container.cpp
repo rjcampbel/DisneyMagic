@@ -6,6 +6,22 @@
 namespace disneymagic
 {
 
+ContainerFactory::ContainerFactory(
+    sf::RenderWindow& window,
+    const sf::Font& font,
+    double desired_image_width,
+    double desired_image_height)
+    :   window(window),
+        font(font),
+        desired_image_width(desired_image_width),
+        desired_image_height(desired_image_height)
+{}
+
+Container ContainerFactory::operator()(const rapidjson::Value& collection_set)
+{
+    return Container(collection_set, window, font, desired_image_width, desired_image_height);
+}
+
 ContainerItem::ContainerItem(
     const rapidjson::Value& item,
     sf::RenderWindow& window,
@@ -94,17 +110,17 @@ void ContainerItem::Draw(const sf::Vector2f& position)
 }
 
 Container::Container(
-    const rapidjson::Value& collection_set,
+    const rapidjson::Value& container,
     sf::RenderWindow& window,
     const sf::Font& font,
     double desired_image_width,
     double desired_image_height)
-    :   title(collection_set["text"]["title"]["full"]["set"]["default"]["content"].GetString())
+    :   title(container["set"]["text"]["title"]["full"]["set"]["default"]["content"].GetString())
 {
-    if (std::strcmp(collection_set["type"].GetString(), "SetRef") != 0)
+    if (std::strcmp(container["set"]["type"].GetString(), "SetRef") != 0)
     {
-        items.reserve(collection_set["items"].GetArray().Size());
-        for (const auto& item : collection_set["items"].GetArray())
+        items.reserve(container["set"]["items"].GetArray().Size());
+        for (const auto& item : container["set"]["items"].GetArray())
         {
             items.emplace_back(item, window, font, desired_image_width, desired_image_height);
         }
