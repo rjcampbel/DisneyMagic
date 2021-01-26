@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
+#include <memory>
 #include <rapidjson/document.h>
 
 namespace disneymagic
@@ -61,7 +62,7 @@ public:
         double desired_image_width,
         double desired_image_height);
 
-    Container operator()(const rapidjson::Value& collection_set);
+    std::unique_ptr<Container> operator()(const rapidjson::Value& collection_set);
 
 private:
     sf::RenderWindow& window;

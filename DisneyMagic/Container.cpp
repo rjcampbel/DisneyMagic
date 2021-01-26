@@ -17,9 +17,9 @@ ContainerFactory::ContainerFactory(
         desired_image_height(desired_image_height)
 {}
 
-Container ContainerFactory::operator()(const rapidjson::Value& collection_set)
+std::unique_ptr<Container> ContainerFactory::operator()(const rapidjson::Value& collection_set)
 {
-    return Container(collection_set, window, font, desired_image_width, desired_image_height);
+    return std::make_unique<Container>(collection_set, window, font, desired_image_width, desired_image_height);
 }
 
 ContainerItem::ContainerItem(

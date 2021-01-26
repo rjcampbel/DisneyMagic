@@ -7,6 +7,7 @@
 #include <string>
 #include <rapidjson/document.h>
 #include <algorithm>
+#include <memory>
 
 static const size_t max_row_tile_count { 4 };
 static const size_t max_row_count { 4 };
@@ -36,7 +37,7 @@ static void populate_default_containers(
     const std::string& home_api_contents,
     sf::RenderWindow& window,
     const sf::Font& font,
-    std::vector<disneymagic::Container>& containers)
+    std::vector<std::unique_ptr<disneymagic::Container>>& containers)
 {
     rapidjson::Document api_doc;
     api_doc.Parse(home_api_contents.c_str());
@@ -76,7 +77,7 @@ int main()
 {
     sf::RenderWindow window;
     sf::Font font;
-    std::vector<disneymagic::Container> containers;
+    std::vector<std::unique_ptr<disneymagic::Container>> containers;
 
     try
     {
@@ -147,7 +148,7 @@ int main()
                             // TODO: row_index needs to be the index into the complete set of
                             //       containers, not just the rows that are displayed
                             int row_index = cursor_position / max_row_tile_count;
-                            int current_row_size = containers.at(row_index).GetItemCount();
+                            int current_row_size = containers.at(row_index)->GetItemCount();
                             if ((first_item_index_per_row[row_index] + max_row_tile_count) < current_row_size)
                             {
                                 ++first_item_index_per_row[row_index];
@@ -180,11 +181,13 @@ int main()
                         }
                         else
                         {
+                            // if first_container_index <
                             if (first_container_index + max_row_count < containers.size())
                             {
                                 ++first_container_index;
                             }
                         }
+
                         std::cout << "Down: " << first_container_index << std::endl;
                         break;
                     }
@@ -204,17 +207,17 @@ int main()
             double container_row { row_offset + row_index * row_width };
 
             // Render the title for current row
-            sf::Text container_text(container.GetTitle().c_str(), font, font_size);
+            sf::Text container_text(container->GetTitle().c_str(), font, font_size);
             container_text.setFillColor(sf::Color::White);
             container_text.setPosition(column_offset, container_row);
             window.draw(container_text);
 
             // Render the tiles and selection cursor
-            for (size_t tile_index = 0; tile_index < std::min(max_row_tile_count, container.GetItemCount()); ++tile_index)
+            for (size_t tile_index = 0; tile_index < std::min(max_row_tile_count, container->GetItemCount()); ++tile_index)
             {
                 double tile_row { container_row + font_size + 10 };
                 double tile_column { column_offset + tile_index * column_width };
-                auto& item = container.GetItem(tile_index + first_item_index_per_row[container_index]);
+                auto& item = container->GetItem(tile_index + first_item_index_per_row[container_index]);
 
                 if (cursor_position == row_index * max_row_tile_count + tile_index)
                 {
