@@ -23,12 +23,39 @@ static const double image_height { 174.22 };
 // factor used to scale up the currently selected tile
 static const sf::Vector2f kScaleEnhancementFactor(1.033f, 1.033f);
 
-int main()
-{
-    // Create the main window
-    sf::RenderWindow window(sf::VideoMode(1600, 1200), "Disney+");
+static const std::string home_api_url {"https://cd-static.bamgrid.com/dp-117731241344/home.json"};
 
-    // Set the Icon
+static std::string get_home_api()
+{
+    std::string home_api_contents;
+    curlhelpers::retrieve_file_from_URL(home_api_url, home_api_contents);
+    return home_api_contents;
+}
+
+static void populate_default_containers(
+    const std::string& home_api_contents,
+    sf::RenderWindow& window,
+    const sf::Font& font,
+    std::vector<disneymagic::Container>& containers)
+{
+    rapidjson::Document api_doc;
+    api_doc.Parse(home_api_contents.c_str());
+
+    const auto& container_array = api_doc["data"]["StandardCollection"]["containers"].GetArray();
+    containers.reserve(container_array.Size());
+
+    disneymagic::ContainerFactory container_factory(window, font, image_width, image_height);
+    std::transform(
+        container_array.begin(),
+        container_array.begin() + std::min(max_row_count, (size_t)container_array.Size()),
+        std::back_inserter(containers),
+        container_factory);
+}
+
+static void initialize_display(sf::RenderWindow& window, sf::Font& font)
+{
+    window.create(sf::VideoMode(1600, 1200), "Disney+");
+
     sf::Image icon;
     if (!icon.loadFromFile(resourcePath() + "DisneyPlus.png"))
     {
@@ -39,41 +66,37 @@ int main()
         window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     }
 
-    sf::Font font;
     if (!font.loadFromFile(resourcePath() + "Avenir.ttc"))
     {
-        return EXIT_FAILURE;
+        throw std::runtime_error("Failed to load font");
     }
+}
 
-    std::string homeApiUrl("https://cd-static.bamgrid.com/dp-117731241344/home.json");
-    std::string homeApiContents;
+int main()
+{
+    sf::RenderWindow window;
+    sf::Font font;
+    std::vector<disneymagic::Container> containers;
+
     try
     {
-        curlhelpers::retrieve_file_from_URL(homeApiUrl, homeApiContents);
+        initialize_display(window, font);
+        populate_default_containers(get_home_api(), window, font, containers);
     }
-    catch (std::runtime_error& e)
+    catch(std::exception& e)
     {
         std::cout << e.what() << std::endl;
         return EXIT_FAILURE;
     }
-
-    rapidjson::Document apiDoc;
-    apiDoc.Parse(homeApiContents.c_str());
-
-    const auto& container_array = apiDoc["data"]["StandardCollection"]["containers"].GetArray();
-    std::vector<disneymagic::Container> containers;
-    containers.reserve(container_array.Size());
-
-    disneymagic::ContainerFactory container_factory(window, font, image_width, image_height);
-    std::transform(
-        container_array.begin(),
-        container_array.begin() + 4,
-        std::back_inserter(containers),
-        container_factory);
+    catch(...)
+    {
+        std::cout << "Unknown error" << std::endl;
+        return EXIT_FAILURE;
+    }
 
     std::vector<int> first_item_index_per_row(containers.size(), 0);
     int cursor_position { 0 };
-    int first_collection_index { 0 };
+    int first_container_index { 0 };
 
     while (window.isOpen())
     {
@@ -136,12 +159,12 @@ int main()
                         }
                         else
                         {
-                            if (first_collection_index > 0)
+                            if (first_container_index > 0)
                             {
-                                --first_collection_index;
+                                --first_container_index;
                             }
                         }
-                        std::cout << "Up: " << first_collection_index << std::endl;
+                        std::cout << "Up: " << first_container_index << std::endl;
                         break;
                     }
                     case sf::Keyboard::Down:
@@ -153,12 +176,12 @@ int main()
                         }
                         else
                         {
-                            if (first_collection_index + max_row_count < containers.size())
+                            if (first_container_index + max_row_count < containers.size())
                             {
-                                ++first_collection_index;
+                                ++first_container_index;
                             }
                         }
-                        std::cout << "Down: " << first_collection_index << std::endl;
+                        std::cout << "Down: " << first_container_index << std::endl;
                         break;
                     }
                     default: break;
@@ -171,23 +194,23 @@ int main()
 
         // Render row titles, tiles, and cursor
         size_t row_index { 0 };
-        for (size_t collection_index = first_collection_index; collection_index < first_collection_index + max_row_tile_count; ++collection_index)
+        for (size_t container_index = first_container_index; container_index < first_container_index + max_row_tile_count; ++container_index)
         {
-            auto& collection = containers.at(collection_index);
-            double collection_row { row_offset + row_index * row_width };
+            auto& container = containers.at(container_index);
+            double container_row { row_offset + row_index * row_width };
 
             // Render the title for current row
-            sf::Text collection_text(collection.GetTitle().c_str(), font, font_size);
-            collection_text.setFillColor(sf::Color::White);
-            collection_text.setPosition(column_offset, collection_row);
-            window.draw(collection_text);
+            sf::Text container_text(container.GetTitle().c_str(), font, font_size);
+            container_text.setFillColor(sf::Color::White);
+            container_text.setPosition(column_offset, container_row);
+            window.draw(container_text);
 
             // Render the tiles and selection cursor
-            for (size_t tile_index = 0; tile_index < std::min(max_row_tile_count, collection.GetItemCount()); ++tile_index)
+            for (size_t tile_index = 0; tile_index < std::min(max_row_tile_count, container.GetItemCount()); ++tile_index)
             {
-                double tile_row { collection_row + font_size + 10 };
+                double tile_row { container_row + font_size + 10 };
                 double tile_column { column_offset + tile_index * column_width };
-                auto& item = collection.GetItem(tile_index + first_item_index_per_row[collection_index]);
+                auto& item = container.GetItem(tile_index + first_item_index_per_row[container_index]);
 
                 if (cursor_position == row_index * max_row_tile_count + tile_index)
                 {
