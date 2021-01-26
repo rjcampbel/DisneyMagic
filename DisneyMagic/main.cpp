@@ -60,26 +60,19 @@ int main()
     rapidjson::Document apiDoc;
     apiDoc.Parse(homeApiContents.c_str());
 
-    std::vector<disneymagic::Container> collections;
-    for (const auto& container : apiDoc["data"]["StandardCollection"]["containers"].GetArray())
+    std::vector<disneymagic::Container> containers;
+    containers.reserve(max_row_count);
+    const auto& container_array = apiDoc["data"]["StandardCollection"]["containers"].GetArray();
+    int row_index { 0 };
+    for (; row_index < max_row_count; ++row_index)
     {
-        auto& collection_set = container["set"];
-        if (std::strcmp(collection_set["type"].GetString(), "SetRef") != 0)
-        {
-            std::string collection_title = collection_set["text"]["title"]["full"]["set"]["default"]["content"].GetString();
-            collections.emplace_back(disneymagic::Container(collection_title));
-
-            for (const auto& item : collection_set["items"].GetArray())
-            {
-                disneymagic::ContainerItem element(item, window, font, image_width, image_height);
-                collections.back().AddElement(element);
-            }
-        }
+        const auto& collection_set = container_array[row_index]["set"];
+        containers.emplace_back(collection_set, window, font, image_width, image_height);
     }
 
     int cursor_position { 0 };
 
-    std::vector<int> first_element_index_per_row(collections.size(), 0);
+    std::vector<int> first_item_index_per_row(containers.size(), 0);
     int first_collection_index { 0 };
     while (window.isOpen())
     {
@@ -110,9 +103,9 @@ int main()
                         else
                         {
                             int row_index = cursor_position / max_row_tile_count;
-                            if (first_element_index_per_row[row_index] > 0)
+                            if (first_item_index_per_row[row_index] > 0)
                             {
-                                --first_element_index_per_row[row_index];
+                                --first_item_index_per_row[row_index];
                             }
                         }
                         break;
@@ -126,10 +119,10 @@ int main()
                         else
                         {
                             int row_index = cursor_position / max_row_tile_count;
-                            int current_row_size = collections.at(row_index).GetElementCount();
-                            if ((first_element_index_per_row[row_index] + max_row_tile_count) < current_row_size)
+                            int current_row_size = containers.at(row_index).GetItemCount();
+                            if ((first_item_index_per_row[row_index] + max_row_tile_count) < current_row_size)
                             {
-                                ++first_element_index_per_row[row_index];
+                                ++first_item_index_per_row[row_index];
                             }
                         }
                         break;
@@ -159,12 +152,13 @@ int main()
                         }
                         else
                         {
-                            if (first_collection_index + max_row_count < collections.size())
+                            if (first_collection_index + max_row_count < containers.size())
                             {
                                 ++first_collection_index;
                             }
                         }
                         std::cout << "Down: " << first_collection_index << std::endl;
+                        break;
                     }
                     default: break;
                 }
@@ -178,7 +172,7 @@ int main()
         size_t row_index { 0 };
         for (size_t collection_index = first_collection_index; collection_index < first_collection_index + max_row_tile_count; ++collection_index)
         {
-            auto& collection = collections.at(collection_index);
+            auto& collection = containers.at(collection_index);
             double collection_row { row_offset + row_index * row_width };
 
             // Render the title for current row
@@ -188,15 +182,15 @@ int main()
             window.draw(collection_text);
 
             // Render the tiles and selection cursor
-            for (size_t tile_index = 0; tile_index < std::min(max_row_tile_count, collection.GetElementCount()); ++tile_index)
+            for (size_t tile_index = 0; tile_index < std::min(max_row_tile_count, collection.GetItemCount()); ++tile_index)
             {
                 double tile_row { collection_row + font_size + 10 };
                 double tile_column { column_offset + tile_index * column_width };
-                auto element = collection.GetElement(tile_index + first_element_index_per_row[collection_index]);
+                auto& item = collection.GetItem(tile_index + first_item_index_per_row[collection_index]);
 
                 if (cursor_position == row_index * max_row_tile_count + tile_index)
                 {
-                    element.EnhanceScale(kScaleEnhancementFactor);
+                    item.EnhanceScale(kScaleEnhancementFactor);
 
                     sf::RectangleShape selection_rect;
                     selection_rect.setFillColor(sf::Color::Transparent);
@@ -209,10 +203,10 @@ int main()
                 }
                 else
                 {
-                    element.ResetScale();
+                    item.ResetScale();
                 }
 
-                element.Draw(sf::Vector2f(tile_column, tile_row));
+                item.Draw(sf::Vector2f(tile_column, tile_row));
             }
             row_index++;
         }

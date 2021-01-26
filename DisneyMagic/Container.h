@@ -34,16 +34,20 @@ private:
 class Container
 {
 public:
-    Container(const std::string& title);
+    Container(
+        const rapidjson::Value& collection_set,
+        sf::RenderWindow& window,
+        const sf::Font& font,
+        double desired_image_width,
+        double desired_image_height);
 
-    void AddElement(const ContainerItem& element);
     std::string GetTitle() const;
-    size_t GetElementCount() const;
-    const ContainerItem& GetElement(size_t index) const;
+    size_t GetItemCount() const;
+    ContainerItem& GetItem(size_t index);
 
 private:
     std::string title;
-    std::vector<ContainerItem> elements;
+    std::vector<ContainerItem> items;
 };
 
 }

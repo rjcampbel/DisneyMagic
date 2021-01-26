@@ -49,7 +49,7 @@ ContainerItem::ContainerItem(
     std::string image_buffer;
     try
     {
-       curlhelpers::retrieve_file_from_URL(image_url.c_str(), image_buffer);
+        curlhelpers::retrieve_file_from_URL(image_url.c_str(), image_buffer);
     }
     catch (std::runtime_error& e)
     {
@@ -67,7 +67,6 @@ ContainerItem::ContainerItem(
         has_image = true;
     }
 }
-
 
 void ContainerItem::EnhanceScale(const sf::Vector2f& factors)
 {
@@ -94,13 +93,22 @@ void ContainerItem::Draw(const sf::Vector2f& position)
     }
 }
 
-Container::Container(const std::string& title) :
-    title(title)
-{}
-
-void Container::AddElement(const ContainerItem& element)
+Container::Container(
+    const rapidjson::Value& collection_set,
+    sf::RenderWindow& window,
+    const sf::Font& font,
+    double desired_image_width,
+    double desired_image_height)
+    :   title(collection_set["text"]["title"]["full"]["set"]["default"]["content"].GetString())
 {
-    elements.push_back(element);
+    if (std::strcmp(collection_set["type"].GetString(), "SetRef") != 0)
+    {
+        items.reserve(collection_set["items"].GetArray().Size());
+        for (const auto& item : collection_set["items"].GetArray())
+        {
+            items.emplace_back(item, window, font, desired_image_width, desired_image_height);
+        }
+    }
 }
 
 std::string Container::GetTitle() const
@@ -108,14 +116,14 @@ std::string Container::GetTitle() const
     return title;
 }
 
-size_t Container::GetElementCount() const
+size_t Container::GetItemCount() const
 {
-    return elements.size();
+    return items.size();
 }
 
-const ContainerItem& Container::GetElement(size_t index) const
+ContainerItem& Container::GetItem(size_t index)
 {
-    return elements.at(index);
+    return items.at(index);
 }
 
 }
