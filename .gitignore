@@ -40,3 +40,4 @@ xcuserdata/
 build/**
 .vscode/launch.json
 *.xcscheme
+.vscode/settings.json
