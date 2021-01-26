@@ -126,6 +126,8 @@ int main()
                         }
                         else
                         {
+                            // TODO: row_index needs to be the index into the complete set of
+                            //       containers, not just the rows that are displayed
                             int row_index = cursor_position / max_row_tile_count;
                             if (first_item_index_per_row[row_index] > 0)
                             {
@@ -142,6 +144,8 @@ int main()
                         }
                         else
                         {
+                            // TODO: row_index needs to be the index into the complete set of
+                            //       containers, not just the rows that are displayed
                             int row_index = cursor_position / max_row_tile_count;
                             int current_row_size = containers.at(row_index).GetItemCount();
                             if ((first_item_index_per_row[row_index] + max_row_tile_count) < current_row_size)
