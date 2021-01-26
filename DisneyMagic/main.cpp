@@ -126,142 +126,155 @@ int main()
 
     while (window.isOpen())
     {
-        // Process events
-        sf::Event event;
-        while (window.pollEvent(event))
+        try
         {
-            if (event.type == sf::Event::Closed)
+            // Process events
+            sf::Event event;
+            while (window.pollEvent(event))
             {
-                window.close();
-            }
-
-            if (event.type == sf::Event::KeyPressed)
-            {
-                switch (event.key.code)
+                if (event.type == sf::Event::Closed)
                 {
-                    case sf::Keyboard::Escape:
+                    window.close();
+                }
+
+                if (event.type == sf::Event::KeyPressed)
+                {
+                    switch (event.key.code)
                     {
-                        window.close();
-                        break;
-                    }
-                    case sf::Keyboard::Left:
-                    {
-                        if (cursor_position % max_row_tile_count > 0)
+                        case sf::Keyboard::Escape:
                         {
-                            --cursor_position;
+                            window.close();
+                            break;
                         }
-                        else
+                        case sf::Keyboard::Left:
                         {
-                            int row_index = cursor_position / max_row_tile_count + first_container_index;
-                            if (first_item_index_per_row[row_index] > 0)
+                            if (cursor_position % max_row_tile_count > 0)
                             {
-                                --first_item_index_per_row[row_index];
+                                --cursor_position;
                             }
-                        }
-                        break;
-                    }
-                    case sf::Keyboard::Right:
-                    {
-                        if (cursor_position % max_row_tile_count < (max_row_tile_count - 1) )
-                        {
-                            ++cursor_position;
-                        }
-                        else
-                        {
-                            int row_index = cursor_position / max_row_tile_count + first_container_index;
-                            int current_row_size = containers.at(row_index)->GetItemCount();
-                            if ((first_item_index_per_row[row_index] + max_row_tile_count) < current_row_size)
+                            else
                             {
-                                ++first_item_index_per_row[row_index];
+                                int row_index = cursor_position / max_row_tile_count + first_container_index;
+                                if (first_item_index_per_row[row_index] > 0)
+                                {
+                                    --first_item_index_per_row[row_index];
+                                }
                             }
+                            break;
                         }
-                        break;
-                    }
-                    case sf::Keyboard::Up:
-                    {
-                        if (cursor_position / max_row_tile_count > 0)
+                        case sf::Keyboard::Right:
                         {
-                            cursor_position -= max_row_tile_count;
-                        }
-                        else
-                        {
-                            if (first_container_index > 0)
+                            if (cursor_position % max_row_tile_count < (max_row_tile_count - 1) )
                             {
-                                --first_container_index;
+                                ++cursor_position;
                             }
-                        }
-                        break;
-                    }
-                    case sf::Keyboard::Down:
-                    {
-                        int current_cursor_row = cursor_position / max_row_tile_count;
-                        if (current_cursor_row < (max_row_count - 1))
-                        {
-                            cursor_position += max_row_tile_count;
-                        }
-                        else
-                        {
-                            if (load_row(containers.size(), get_home_api(), window, font, containers) ||
-                                first_container_index < containers.size() - max_row_count)
+                            else
                             {
-                                ++first_container_index;
+                                int row_index = cursor_position / max_row_tile_count + first_container_index;
+                                int current_row_size = containers.at(row_index)->GetItemCount();
+                                if ((first_item_index_per_row[row_index] + max_row_tile_count) < current_row_size)
+                                {
+                                    ++first_item_index_per_row[row_index];
+                                }
                             }
+                            break;
                         }
-                        break;
+                        case sf::Keyboard::Up:
+                        {
+                            if (cursor_position / max_row_tile_count > 0)
+                            {
+                                cursor_position -= max_row_tile_count;
+                            }
+                            else
+                            {
+                                if (first_container_index > 0)
+                                {
+                                    --first_container_index;
+                                }
+                            }
+                            break;
+                        }
+                        case sf::Keyboard::Down:
+                        {
+                            int current_cursor_row = cursor_position / max_row_tile_count;
+                            if (current_cursor_row < (max_row_count - 1))
+                            {
+                                cursor_position += max_row_tile_count;
+                            }
+                            else
+                            {
+                                if (load_row(containers.size(), get_home_api(), window, font, containers) ||
+                                    first_container_index < containers.size() - max_row_count)
+                                {
+                                    ++first_container_index;
+                                }
+                            }
+                            break;
+                        }
+                        default: break;
                     }
-                    default: break;
                 }
             }
+
+            // Clear the display
+            window.clear();
+
+            // Render row titles, tiles, and cursor
+            size_t row_index { 0 };
+            for (size_t container_index = first_container_index; container_index < first_container_index + max_row_tile_count; ++container_index)
+            {
+                auto& container = containers.at(container_index);
+                double container_row { row_offset + row_index * row_width };
+
+                // Render the title for current row
+                sf::Text container_text(container->GetTitle().c_str(), font, font_size);
+                container_text.setFillColor(sf::Color::White);
+                container_text.setPosition(column_offset, container_row);
+                window.draw(container_text);
+
+                // Render the tiles and selection cursor
+                for (size_t tile_index = 0; tile_index < std::min(max_row_tile_count, container->GetItemCount()); ++tile_index)
+                {
+                    double tile_row { container_row + font_size + 10 };
+                    double tile_column { column_offset + tile_index * column_width };
+                    auto& item = container->GetItem(tile_index + first_item_index_per_row[container_index]);
+
+                    if (cursor_position == row_index * max_row_tile_count + tile_index)
+                    {
+                        item.EnhanceScale(kScaleEnhancementFactor);
+
+                        sf::RectangleShape selection_rect;
+                        selection_rect.setFillColor(sf::Color::Transparent);
+                        selection_rect.setOutlineColor(sf::Color::White);
+                        selection_rect.setOutlineThickness(5.0f);
+                        sf::Vector2f rect_size(image_width * kScaleEnhancementFactor.x, image_height * kScaleEnhancementFactor.y);
+                        selection_rect.setSize(rect_size);
+                        selection_rect.setPosition(tile_column, tile_row);
+                        window.draw(selection_rect);
+                    }
+                    else
+                    {
+                        item.ResetScale();
+                    }
+
+                    item.Draw(sf::Vector2f(tile_column, tile_row));
+                }
+                ++row_index;
+            }
+
+            // Update display
+            window.display();
         }
-
-        // Clear the display
-        window.clear();
-
-        // Render row titles, tiles, and cursor
-        size_t row_index { 0 };
-        for (size_t container_index = first_container_index; container_index < first_container_index + max_row_tile_count; ++container_index)
+        catch(std::exception& e)
         {
-            auto& container = containers.at(container_index);
-            double container_row { row_offset + row_index * row_width };
-
-            // Render the title for current row
-            sf::Text container_text(container->GetTitle().c_str(), font, font_size);
-            container_text.setFillColor(sf::Color::White);
-            container_text.setPosition(column_offset, container_row);
-            window.draw(container_text);
-
-            // Render the tiles and selection cursor
-            for (size_t tile_index = 0; tile_index < std::min(max_row_tile_count, container->GetItemCount()); ++tile_index)
-            {
-                double tile_row { container_row + font_size + 10 };
-                double tile_column { column_offset + tile_index * column_width };
-                auto& item = container->GetItem(tile_index + first_item_index_per_row[container_index]);
-
-                if (cursor_position == row_index * max_row_tile_count + tile_index)
-                {
-                    item.EnhanceScale(kScaleEnhancementFactor);
-
-                    sf::RectangleShape selection_rect;
-                    selection_rect.setFillColor(sf::Color::Transparent);
-                    selection_rect.setOutlineColor(sf::Color::White);
-                    selection_rect.setOutlineThickness(5.0f);
-                    sf::Vector2f rect_size(image_width * kScaleEnhancementFactor.x, image_height * kScaleEnhancementFactor.y);
-                    selection_rect.setSize(rect_size);
-                    selection_rect.setPosition(tile_column, tile_row);
-                    window.draw(selection_rect);
-                }
-                else
-                {
-                    item.ResetScale();
-                }
-
-                item.Draw(sf::Vector2f(tile_column, tile_row));
-            }
-            ++row_index;
+            std::cout << e.what() << std::endl;
+            return EXIT_FAILURE;
         }
-
-        // Update display
-        window.display();
+        catch(...)
+        {
+            std::cout << "Unknown error" << std::endl;
+            return EXIT_FAILURE;
+        }
     }
 
     return EXIT_SUCCESS;
