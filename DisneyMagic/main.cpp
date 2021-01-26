@@ -53,6 +53,31 @@ static void populate_default_containers(
         container_factory);
 }
 
+static bool load_row(
+    size_t row_index,
+    const std::string& home_api_contents,
+    sf::RenderWindow& window,
+    const sf::Font& font,
+    std::vector<std::unique_ptr<disneymagic::Container>>& containers)
+{
+    rapidjson::Document api_doc;
+    api_doc.Parse(home_api_contents.c_str());
+
+    const auto& container_array = api_doc["data"]["StandardCollection"]["containers"].GetArray();
+
+    if (row_index < container_array.Size())
+    {
+        disneymagic::ContainerFactory container_factory(window, font, image_width, image_height);
+        std::transform(
+            container_array.begin() + row_index - 1,
+            container_array.begin() + row_index,
+            std::back_inserter(containers),
+            container_factory);
+        return true;
+    }
+    return false;
+}
+
 static void initialize_display(sf::RenderWindow& window, sf::Font& font)
 {
     window.create(sf::VideoMode(1600, 1200), "Disney+");
@@ -95,7 +120,7 @@ int main()
         return EXIT_FAILURE;
     }
 
-    std::vector<int> first_item_index_per_row(containers.size(), 0);
+    std::vector<int> first_item_index_per_row(containers.capacity(), 0);
     int cursor_position { 0 };
     int first_container_index { 0 };
 
@@ -127,9 +152,7 @@ int main()
                         }
                         else
                         {
-                            // TODO: row_index needs to be the index into the complete set of
-                            //       containers, not just the rows that are displayed
-                            int row_index = cursor_position / max_row_tile_count;
+                            int row_index = cursor_position / max_row_tile_count + first_container_index;
                             if (first_item_index_per_row[row_index] > 0)
                             {
                                 --first_item_index_per_row[row_index];
@@ -145,9 +168,7 @@ int main()
                         }
                         else
                         {
-                            // TODO: row_index needs to be the index into the complete set of
-                            //       containers, not just the rows that are displayed
-                            int row_index = cursor_position / max_row_tile_count;
+                            int row_index = cursor_position / max_row_tile_count + first_container_index;
                             int current_row_size = containers.at(row_index)->GetItemCount();
                             if ((first_item_index_per_row[row_index] + max_row_tile_count) < current_row_size)
                             {
@@ -169,7 +190,6 @@ int main()
                                 --first_container_index;
                             }
                         }
-                        std::cout << "Up: " << first_container_index << std::endl;
                         break;
                     }
                     case sf::Keyboard::Down:
@@ -181,14 +201,12 @@ int main()
                         }
                         else
                         {
-                            // if first_container_index <
-                            if (first_container_index + max_row_count < containers.size())
+                            if (load_row(containers.size(), get_home_api(), window, font, containers) ||
+                                first_container_index < containers.size() - max_row_count)
                             {
                                 ++first_container_index;
                             }
                         }
-
-                        std::cout << "Down: " << first_container_index << std::endl;
                         break;
                     }
                     default: break;
@@ -239,7 +257,7 @@ int main()
 
                 item.Draw(sf::Vector2f(tile_column, tile_row));
             }
-            row_index++;
+            ++row_index;
         }
 
         // Update display
