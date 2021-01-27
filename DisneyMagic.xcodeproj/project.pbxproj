@@ -29,6 +29,7 @@
 		94DBF1FA25B631FD0042EC4D /* ogg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E225B631FD0042EC4D /* ogg.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		94DBF1FC25B631FD0042EC4D /* vorbisenc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E325B631FD0042EC4D /* vorbisenc.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		94DBF1FE25B631FD0042EC4D /* SFML.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94DBF1E425B631FD0042EC4D /* SFML.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E7FB3B8F25C130E500E6E3AA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7FB3B8E25C130E500E6E3AA /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -70,7 +71,6 @@
 		94DBF18D25B624370042EC4D /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
 		94DBF18F25B624370042EC4D /* ResourcePath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ResourcePath.hpp; sourceTree = "<group>"; };
 		94DBF19025B624370042EC4D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		94DBF19725B624370042EC4D /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sansation.ttf; sourceTree = "<group>"; };
 		94DBF1D625B62AB80042EC4D /* DisneyMagic-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DisneyMagic-Info.plist"; sourceTree = "<group>"; };
 		94DBF1D825B631FC0042EC4D /* freetype.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = freetype.framework; path = DisneyMagic/extlilbs/freetype.framework; sourceTree = "<group>"; };
 		94DBF1D925B631FC0042EC4D /* sfml-graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-graphics.framework"; path = "DisneyMagic/extlilbs/sfml-graphics.framework"; sourceTree = "<group>"; };
@@ -85,6 +85,7 @@
 		94DBF1E225B631FD0042EC4D /* ogg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ogg.framework; path = DisneyMagic/extlilbs/ogg.framework; sourceTree = "<group>"; };
 		94DBF1E325B631FD0042EC4D /* vorbisenc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vorbisenc.framework; path = DisneyMagic/extlilbs/vorbisenc.framework; sourceTree = "<group>"; };
 		94DBF1E425B631FD0042EC4D /* SFML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SFML.framework; path = DisneyMagic/extlilbs/SFML.framework; sourceTree = "<group>"; };
+		E7FB3B8E25C130E500E6E3AA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +142,7 @@
 				94DBF18F25B624370042EC4D /* ResourcePath.hpp */,
 				94DBF19025B624370042EC4D /* main.cpp */,
 				94DBF19225B624370042EC4D /* Resources */,
+				E7FB3B8E25C130E500E6E3AA /* Images.xcassets */,
 				94DBF18B25B624370042EC4D /* Supporting Files */,
 			);
 			path = DisneyMagic;
@@ -159,7 +161,6 @@
 			children = (
 				9458A71825B71DBE003C3882 /* Avenir.ttc */,
 				94B8973225B718DD004057FC /* DisneyPlus.png */,
-				94DBF19725B624370042EC4D /* sansation.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -232,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9458A71925B71DBE003C3882 /* Avenir.ttc in Resources */,
+				E7FB3B8F25C130E500E6E3AA /* Images.xcassets in Resources */,
 				94DBF1D725B62AB90042EC4D /* DisneyMagic-Info.plist in Resources */,
 				94B8973325B718DD004057FC /* DisneyPlus.png in Resources */,
 			);
@@ -367,6 +369,7 @@
 		94DBF19E25B624370042EC4D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 37MYE227MV;
@@ -399,6 +402,7 @@
 		94DBF19F25B624370042EC4D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 37MYE227MV;
