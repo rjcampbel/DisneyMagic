@@ -37,9 +37,9 @@ static void populate_default_containers(
     const std::string& home_api_contents,
     sf::RenderWindow& window,
     const sf::Font& font,
+    rapidjson::Document& api_doc,
     std::vector<std::unique_ptr<disneymagic::Container>>& containers)
 {
-    rapidjson::Document api_doc;
     api_doc.Parse(home_api_contents.c_str());
 
     const auto& container_array = api_doc["data"]["StandardCollection"]["containers"].GetArray();
@@ -55,24 +55,15 @@ static void populate_default_containers(
 
 static bool load_row(
     size_t row_index,
-    const std::string& home_api_contents,
+    const rapidjson::Document& api_doc,
     sf::RenderWindow& window,
     const sf::Font& font,
     std::vector<std::unique_ptr<disneymagic::Container>>& containers)
 {
-    rapidjson::Document api_doc;
-    api_doc.Parse(home_api_contents.c_str());
-
     const auto& container_array = api_doc["data"]["StandardCollection"]["containers"].GetArray();
-
     if (row_index < container_array.Size())
     {
-        disneymagic::ContainerFactory container_factory(window, font, image_width, image_height);
-        std::transform(
-            container_array.begin() + row_index - 1,
-            container_array.begin() + row_index,
-            std::back_inserter(containers),
-            container_factory);
+        containers.emplace_back(std::make_unique<disneymagic::Container>(container_array[row_index], window, font, image_width, image_height));
         return true;
     }
     return false;
@@ -103,11 +94,11 @@ int main()
     sf::RenderWindow window;
     sf::Font font;
     std::vector<std::unique_ptr<disneymagic::Container>> containers;
-
+    rapidjson::Document api_doc;
     try
     {
         initialize_display(window, font);
-        populate_default_containers(get_home_api(), window, font, containers);
+        populate_default_containers(get_home_api(), window, font, api_doc, containers);
     }
     catch(std::exception& e)
     {
@@ -203,7 +194,7 @@ int main()
                             }
                             else
                             {
-                                if (load_row(containers.size(), get_home_api(), window, font, containers) ||
+                                if (load_row(containers.size(), api_doc, window, font, containers) ||
                                     first_container_index < containers.size() - max_row_count)
                                 {
                                     ++first_container_index;
