@@ -117,43 +117,33 @@ Container::Container(
     double desired_image_height)
     :   title(container["set"]["text"]["title"]["full"]["set"]["default"]["content"].GetString())
 {
-    if (std::strcmp(container["set"]["type"].GetString(), "SetRef") != 0)
+    try
     {
-        items.reserve(container["set"]["items"].GetArray().Size());
-        for (const auto& item : container["set"]["items"].GetArray())
+        if (std::strcmp(container["set"]["type"].GetString(), "SetRef") != 0)
         {
-            items.emplace_back(item, window, font, desired_image_width, desired_image_height);
+            PopulateItems(container["set"], window, font, desired_image_width, desired_image_height);
         }
-    }
-    else
-    {
-        std::string container_ref_id = container["set"]["refId"].GetString();
-        std::string container_url = "https://cd-static.bamgrid.com/dp-117731241344/sets/" + container_ref_id + ".json";
-        std::string container_api_contents;
-
-        try
+        else
         {
+            std::string container_ref_id = container["set"]["refId"].GetString();
+            std::string container_url = "https://cd-static.bamgrid.com/dp-117731241344/sets/" + container_ref_id + ".json";
+            std::string container_api_contents;
+
             curlhelpers::retrieve_file_from_URL(container_url, container_api_contents);
 
             rapidjson::Document api_doc;
             api_doc.Parse(container_api_contents.c_str());
 
-            const auto& data = api_doc["data"];
-            const auto& data_set_iter = data.MemberBegin();
-            items.reserve(data_set_iter->value["items"].GetArray().Size());
-            for (const auto& item: data_set_iter->value["items"].GetArray())
-            {
-                items.emplace_back(item, window, font, desired_image_width, desired_image_height);
-            }
+            PopulateItems(api_doc["data"].MemberBegin()->value, window, font, desired_image_width, desired_image_height);
         }
-        catch(std::exception& e)
-        {
-            std::cout << e.what() << std::endl;
-        }
-        catch(...)
-        {
-            std::cout << "Unknown error" << std::endl;
-        }
+    }
+    catch(std::exception& e)
+    {
+        std::cout << e.what() << std::endl;
+    }
+    catch(...)
+    {
+        std::cout << "Unknown error" << std::endl;
     }
 }
 
@@ -170,6 +160,16 @@ size_t Container::GetItemCount() const
 ContainerItem& Container::GetItem(size_t index)
 {
     return items.at(index);
+}
+
+void Container::PopulateItems(const rapidjson::Value& foo, sf::RenderWindow& window, const sf::Font& font, double desired_image_width, double desired_image_height)
+{
+    const auto& items_array = foo["items"].GetArray();
+    items.reserve(items_array.Size());
+    for (const auto& item : items_array)
+    {
+        items.emplace_back(item, window, font, desired_image_width, desired_image_height);
+    }
 }
 
 }

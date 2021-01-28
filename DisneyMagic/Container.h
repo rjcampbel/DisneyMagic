@@ -49,6 +49,8 @@ public:
     ContainerItem& GetItem(size_t index);
 
 private:
+    void PopulateItems(const rapidjson::Value& foo, sf::RenderWindow& window, const sf::Font& font, double desired_image_width, double desired_image_height);
+
     std::string title;
     std::vector<ContainerItem> items;
 };
