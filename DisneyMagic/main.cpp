@@ -61,7 +61,7 @@ static bool load_row(
     std::vector<std::unique_ptr<disneymagic::Container>>& containers)
 {
     const auto& container_array = api_doc["data"]["StandardCollection"]["containers"].GetArray();
-    if (row_index < container_array.Size())
+    if (row_index < container_array.Size() && row_index >= containers.size())
     {
         containers.emplace_back(std::make_unique<disneymagic::Container>(container_array[row_index], window, font, image_width, image_height));
         return true;
@@ -194,7 +194,7 @@ int main()
                             }
                             else
                             {
-                                if (load_row(containers.size(), api_doc, window, font, containers) ||
+                                if (load_row(first_container_index + max_row_count, api_doc, window, font, containers) ||
                                     first_container_index < containers.size() - max_row_count)
                                 {
                                     ++first_container_index;
